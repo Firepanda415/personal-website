@@ -16,10 +16,10 @@ function diagram(kind, compact = false) {
   let drawing;
   switch (kind) {
     case 'library':
-      drawing = [48,90,132].map(y => lines(`M35 ${y} H115 L155 90 H205 M205 90 L240 ${y} H285`) + node(35,y) + node(285,y)).join('') + '<rect x="130" y="65" width="75" height="50" fill="var(--paper)" stroke="var(--accent)" stroke-width="2"/>' + text(143,96,'NWQ','accent') + text(27,163,'PROBLEMS') + text(226,163,'RESULTS');
+      drawing = [48,90,132].map(y => lines(`M35 ${y} H115 L155 90 H205 M205 90 L240 ${y} H285`) + node(35,y) + node(285,y)).join('') + '<rect x="122" y="65" width="91" height="50" fill="var(--paper)" stroke="var(--accent)" stroke-width="2"/>' + text(129,96,'NWQLib','accent') + text(27,163,'PROBLEMS') + text(226,163,'RESULTS');
       break;
     case 'hybrid':
-      drawing = lines('M25 65 C45 15 65 115 85 65 S125 15 145 65 S185 115 205 65 S245 15 285 65','var(--accent)') + lines('M25 120 H285') + '<rect x="76" y="107" width="25" height="26" fill="var(--paper)" stroke="currentColor"/>' + '<rect x="216" y="107" width="25" height="26" fill="var(--paper)" stroke="currentColor"/>' + lines('M156 65 V120') + node(156,65) + node(156,120) + text(25,163,'CONTINUOUS') + text(217,163,'DISCRETE');
+      drawing = lines('M25 90 H285') + '<rect x="67" y="60" width="98" height="60" fill="var(--paper)" stroke="var(--accent)" stroke-width="1.5"/>' + lines('M77 90 C84 62 91 62 98 90 S112 118 119 90 S133 62 140 90 S150 110 155 90','var(--accent)') + '<rect x="222" y="74" width="32" height="32" fill="var(--paper)" stroke="currentColor" stroke-width="1.5"/>' + text(231,95,'H') + text(68,163,'CONTINUOUS') + text(211,163,'DISCRETE');
       break;
     case 'downfolding':
       drawing = '<rect x="38" y="32" width="115" height="115" fill="none" stroke="currentColor"/>' + [1,2,3,4].map(i=>lines(`M38 ${32+23*i} H153 M${38+23*i} 32 V147`)).join('') + '<rect x="61" y="55" width="46" height="46" fill="var(--accent)" opacity=".2"/>' + lines('M167 90 H210 M204 84 L210 90 L204 96','var(--accent)') + '<rect x="228" y="63" width="55" height="55" fill="none" stroke="var(--accent)" stroke-width="2"/>' + lines('M255.5 63 V118 M228 90.5 H283','var(--accent)') + text(38,173,'FULL SPACE') + text(221,173,'ACTIVE SPACE');
@@ -27,8 +27,14 @@ function diagram(kind, compact = false) {
     case 'subspace':
       drawing = lines('M60 136 L145 34 L278 70 L193 156 Z') + lines('M96 110 L183 60 L231 113 Z','var(--accent)') + node(96,110) + node(183,60) + node(231,113) + text(38,177,'STATES → SUBSPACE');
       break;
-    case 'operator':
-      drawing = lines('M28 82 Q48 30 67 83 T105 82','var(--accent)') + '<rect x="125" y="57" width="65" height="65" fill="none" stroke="currentColor"/>' + text(148,99,'G','operator-symbol') + lines('M211 105 Q232 42 250 62 T287 83','var(--accent)') + text(28,163,'INPUT') + text(219,163,'SOLUTION');
+    case 'optimization':
+      drawing = [1,.72,.45,.2].map(k=>`<ellipse cx="177" cy="102" rx="${112*k}" ry="${61*k}" transform="rotate(-18 177 102)" fill="none" stroke="currentColor" stroke-width="1" opacity=".65"/>`).join('') + lines('M58 49 L105 66 L98 102 L147 87 L153 110 L178 102','var(--accent)') + [[58,49],[105,66],[98,102],[147,87],[153,110]].map(([x,y])=>node(x,y,3)).join('') + '<circle cx="178" cy="102" r="4" fill="var(--accent)"/>' + text(35,180,'LANDSCAPE → MINIMUM');
+      break;
+    case 'physics-learning':
+      drawing = [52,92,132].map(y=>[65,115].map(z=>lines(`M42 ${y} L90 ${z}`)).join('')).join('') + [65,115].map(y=>[52,92,132].map(z=>lines(`M90 ${y} L138 ${z}`)).join('')).join('') + [52,92,132].map(y=>lines(`M138 ${y} L178 92`)).join('') + [[42,52],[42,92],[42,132],[90,65],[90,115],[138,52],[138,92],[138,132]].map(([x,y])=>node(x,y,4)).join('') + lines('M178 92 H197 M246 118 V149 H90 V130','var(--accent)') + '<rect x="198" y="58" width="95" height="60" fill="var(--paper)" stroke="var(--accent)" stroke-width="1.5"/>' + '<text x="210" y="83" style="font:italic 20px Georgia,serif">∂u/∂t</text><text x="223" y="106" style="font:italic 20px Georgia,serif">= ℒu</text>' + text(36,180,'LEARN') + text(203,180,'PHYSICS');
+      break;
+    case 'cryostat':
+      drawing = lines('M77 40 L126 142 M243 40 L194 142') + [0,1,2,3].map(i=>{const y=40+i*32, r=88-i*18;return `<ellipse cx="160" cy="${y}" rx="${r}" ry="10" fill="var(--wash)" stroke="currentColor" stroke-width="1.5"/>`;}).join('') + [137,153,169,185].map(x=>lines(`M${x} 42 V150`,'var(--accent)')).join('') + '<rect x="142" y="150" width="36" height="20" fill="var(--paper)" stroke="var(--accent)" stroke-width="1.5"/>' + lines('M150 160 H157 M163 160 H170 M157 155 L163 165 M157 165 L163 155','var(--accent)') + text(97,191,'CRYOGENIC CIRCUITS');
       break;
     case 'uncertainty':
       drawing = lines('M32 139 H285 M42 145 V36') + lines('M45 136 C100 136 118 52 160 52 S222 136 280 136','var(--accent)') + lines('M130 82 H194 M130 73 V91 M194 73 V91') + node(162,82) + text(43,172,'ESTIMATE & UNCERTAINTY');

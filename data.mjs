@@ -418,7 +418,7 @@ export const projects = [
     "type": "Quantum algorithms",
     "group": "research",
     "status": "Preprint work",
-    "visual": "operator",
+    "visual": "optimization",
     "description": "Benchmarking quantum Hamiltonian descent and estimating its resources for continuous optimization.",
     "papers": [
       "qhdEncoding",
@@ -433,7 +433,7 @@ export const projects = [
     "type": "Scientific computing",
     "group": "research",
     "status": "Published work",
-    "visual": "operator",
+    "visual": "physics-learning",
     "description": "Exploring quantum neural operators and linear solvers for scientific applications.",
     "detail": "This collection brings together work on Quantum DeepONet and investigations of the HHL quantum linear solver.",
     "papers": [
@@ -465,7 +465,7 @@ export const projects = [
     "type": "Collaborative research",
     "group": "research",
     "status": "Published & preprint work",
-    "visual": "workflow",
+    "visual": "cryostat",
     "description": "Collaborative work on quantum compilation, noisy simulation, hardware co-design, and entanglement purification.",
     "papers": [
       "qasmtrans2026",
