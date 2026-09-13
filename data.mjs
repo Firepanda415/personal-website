@@ -494,43 +494,35 @@ export const elsewhere = [
 export const reading = [
   {
     "title": "The Story of Christianity",
-    "author": "Justo L. González",
-    "url": "https://www.goodreads.com/series/80772-the-story-of-christianity"
+    "author": "Justo L. González"
   },
   {
     "title": "A History of Christian Thought",
-    "author": "Justo L. González",
-    "url": "https://www.abingdonpress.com/product/9780687171828"
+    "author": "Justo L. González"
   },
   {
     "title": "The Stormlight Archive",
-    "author": "Brandon Sanderson",
-    "url": "https://www.brandonsanderson.com/pages/the-stormlight-archive-series"
+    "author": "Brandon Sanderson"
   },
   {
     "title": "Roadside Picnic",
-    "author": "Arkady and Boris Strugatsky",
-    "url": "https://www.chicagoreviewpress.com/roadside-picnic-products-9781613743416.php"
+    "author": "Arkady and Boris Strugatsky"
   },
   {
     "title": "The Hitchhiker’s Guide to the Galaxy",
-    "author": "Douglas Adams",
-    "url": "https://www.penguinrandomhouse.com/series/HGG/hitchhikers-guide-to-the-galaxy/"
+    "author": "Douglas Adams"
   },
   {
     "title": "Sixteen Ways to Defend a Walled City",
-    "author": "K. J. Parker",
-    "url": "https://www.hachettebookgroup.com/titles/k-j-parker/sixteen-ways-to-defend-a-walled-city/9780316270793/"
+    "author": "K. J. Parker"
   },
   {
     "title": "The Fencer Trilogy",
-    "author": "K. J. Parker",
-    "url": "https://www.hachette.com.au/k-j-parker/colours-in-the-steel-fencer-trilogy-volume-1"
+    "author": "K. J. Parker"
   },
   {
     "title": "Principles: Life and Work",
-    "author": "Ray Dalio",
-    "url": "https://www.simonandschuster.net/books/Principles/Ray-Dalio/Principles/9781501124020"
+    "author": "Ray Dalio"
   }
 ];
 
