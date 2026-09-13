@@ -336,6 +336,20 @@ export const papers = {
       ]
     ],
     "doi": "10.1145/3837861"
+  },
+  "errorModeling": {
+    "title": "Error Modeling in NISQ Devices",
+    "authors": "Muqing Zheng, Xiu Yang",
+    "venue": "Encyclopedia of Optimization",
+    "year": 2023,
+    "status": "Reference chapter",
+    "doi": "10.1007/978-3-030-54621-2_850-1",
+    "links": [
+      [
+        "Chapter",
+        "https://doi.org/10.1007/978-3-030-54621-2_850-1"
+      ]
+    ]
   }
 };
 
@@ -431,15 +445,16 @@ export const projects = [
   },
   {
     "id": "error-mitigation",
-    "title": "Bayesian error mitigation",
+    "title": "Quantum error modeling & mitigation",
     "subtitle": "Understanding the measurement.",
     "type": "Quantum reliability",
     "group": "research",
     "status": "Published work",
     "visual": "uncertainty",
-    "description": "A Bayesian approach to characterizing and mitigating gate and measurement errors.",
+    "description": "Characterizing quantum device noise and mitigating gate and measurement errors through Bayesian inference.",
     "papers": [
-      "bayesian"
+      "bayesian",
+      "errorModeling"
     ],
     "links": []
   },
@@ -465,13 +480,76 @@ export const projects = [
 
 export const elsewhere = [
   {
-    "title": "Research & Scientific Library Skills",
+    "title": "Personal Codex skill collections",
     "url": "https://github.com/Firepanda415/research-and-scientific-lib-skills",
-    "description": "Codex skills for research planning, scientific computing, writing, and review."
+    "description": "Skills for research planning, scientific computing, writing, and review."
   },
   {
     "title": "Starfield Skill Planner",
     "url": "https://firepanda415.github.io/Starfield_SkillTree_Generator/",
     "description": "Plan Starfield character builds and export console commands, in English or Chinese."
   }
+];
+
+export const reading = [
+  {
+    "title": "The Story of Christianity",
+    "author": "Justo L. González",
+    "url": "https://www.goodreads.com/series/80772-the-story-of-christianity"
+  },
+  {
+    "title": "A History of Christian Thought",
+    "author": "Justo L. González",
+    "url": "https://www.abingdonpress.com/product/9780687171828"
+  },
+  {
+    "title": "The Stormlight Archive",
+    "author": "Brandon Sanderson",
+    "url": "https://www.brandonsanderson.com/pages/the-stormlight-archive-series"
+  },
+  {
+    "title": "Roadside Picnic",
+    "author": "Arkady and Boris Strugatsky",
+    "url": "https://www.chicagoreviewpress.com/roadside-picnic-products-9781613743416.php"
+  },
+  {
+    "title": "The Hitchhiker’s Guide to the Galaxy",
+    "author": "Douglas Adams",
+    "url": "https://www.penguinrandomhouse.com/series/HGG/hitchhikers-guide-to-the-galaxy/"
+  },
+  {
+    "title": "Sixteen Ways to Defend a Walled City",
+    "author": "K. J. Parker",
+    "url": "https://www.hachettebookgroup.com/titles/k-j-parker/sixteen-ways-to-defend-a-walled-city/9780316270793/"
+  },
+  {
+    "title": "The Fencer Trilogy",
+    "author": "K. J. Parker",
+    "url": "https://www.hachette.com.au/k-j-parker/colours-in-the-steel-fencer-trilogy-volume-1"
+  },
+  {
+    "title": "Principles: Life and Work",
+    "author": "Ray Dalio",
+    "url": "https://www.simonandschuster.net/books/Principles/Ray-Dalio/Principles/9781501124020"
+  }
+];
+
+export const journals = [
+  "Nature Communications",
+  "Physical Review Letters",
+  "Physical Review Applied",
+  "Physical Review A",
+  "npj Quantum Information",
+  "npj Unconventional Computing",
+  "ACM Transactions on Quantum Computing",
+  "IEEE Transactions on Quantum Engineering",
+  "Cluster Computing",
+  "Discover Applied Sciences",
+  "Discover Quantum Science",
+  "EPJ Quantum Technology",
+  "IEEE Transactions on Parallel and Distributed Systems",
+  "Journal of Parallel and Distributed Computing",
+  "Quantum Information Processing",
+  "Rose-Hulman Undergraduate Mathematics Journal",
+  "Scientific Reports"
 ];
