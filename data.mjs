@@ -428,7 +428,7 @@ export const projects = [
   },
   {
     "id": "differential-equations",
-    "title": "Differential equations & neural operators",
+    "title": "Quantum differential equations & neural operators",
     "subtitle": "Algorithms for scientific models.",
     "type": "Scientific computing",
     "group": "research",
