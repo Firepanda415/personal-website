@@ -1,0 +1,11 @@
+{
+  "name": "muqing-zheng-website",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs",
+    "test": "node --test test.mjs",
+    "dev": "node build.mjs && python -m http.server 4173 --bind 127.0.0.1 --directory dist"
+  },
+  "engines": { "node": ">=20" }
+}
