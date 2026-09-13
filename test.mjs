@@ -24,7 +24,7 @@ test('pages build with valid structure and links', async () => {
     }
   }
   const html = await readFile(new URL('dist/projects.html',import.meta.url),'utf8');
-  assert.ok(html.indexOf('id="nwqlib"') < html.indexOf('id="gcm"'));
+  assert.ok(html.indexOf('id="nwqlib"') < html.indexOf('id="quantum-optimization"'));
   assert.match(html,/Public release in preparation/);
 });
 

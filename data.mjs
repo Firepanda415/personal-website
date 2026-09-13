@@ -6,12 +6,8 @@ export const person = {
   "bio": "Muqing Zheng is a Computer Scientist at Pacific Northwest National Laboratory. His research focuses on quantum algorithms for scientific computing, including hybrid continuous-variable and discrete-variable methods, differential equations, and quantum chemistry. He received his Ph.D. in Industrial Engineering from Lehigh University in 2024 and his B.S. in Mathematics from Rose-Hulman Institute of Technology in 2019.",
   "links": [
     [
-      "Email",
-      "mailto:muqing.zheng@pnnl.gov"
-    ],
-    [
       "Scholar",
-      "https://scholar.google.com/citations?user=LoKee_oAAAAJ&hl=en"
+      "https://scholar.google.com/citations?user=1iecJ0YAAAAJ&hl=en"
     ],
     [
       "GitHub",
@@ -41,7 +37,8 @@ export const papers = {
         "https://arxiv.org/abs/2507.01199"
       ]
     ],
-    "authors": "Nicholas P. Bauman, Muqing Zheng, Chenxu Liu, Nathan M. Myers, Ajay Panyala, Bo Peng, Ang Li, and Karol Kowalski"
+    "authors": "Nicholas P. Bauman, Muqing Zheng, Chenxu Liu, Nathan M. Myers, Ajay Panyala, Bo Peng, Ang Li, Karol Kowalski",
+    "date": "2026-01-23"
   },
   "hybrid": {
     "title": "Hybrid continuous-discrete-variable quantum computing: a guide to utility",
@@ -53,7 +50,9 @@ export const papers = {
         "Preprint",
         "https://arxiv.org/abs/2511.13882"
       ]
-    ]
+    ],
+    "authors": "A. F. Kemper, Antonios Alvertis, Muhammad Asaduzzaman, Bojko N. Bakalov, Dror Baron, Joel Bierman, Blake Burgstahler, Srikar Chundury, Elin Ranjan Das, Jim Furches, Fucheng Guo, Raghav G. Jha, Katherine Klymko, Arvin Kushwaha, Ang Li, Aishwarya Majumdar, Carlos Ortiz Marrero, Shubdeep Mohapatra, Christopher Mori, Frank Mueller, Doru Thom Popovici, Tim Stavenger, Mastawal Tirfe, Norm M. Tubman, Muqing Zheng, Huiyang Zhou, Yuan Liu",
+    "date": "2025-11-17"
   },
   "gcim": {
     "title": "Unleashed from constrained optimization: quantum computing for quantum chemistry employing generator coordinate inspired method",
@@ -70,8 +69,13 @@ export const papers = {
       [
         "Code",
         "https://github.com/pnnl/QuGCM"
+      ],
+      [
+        "Preprint",
+        "https://arxiv.org/abs/2312.07691"
       ]
-    ]
+    ],
+    "date": "2024-12-03"
   },
   "gcm": {
     "title": "Quantum algorithms for generator coordinate methods",
@@ -84,8 +88,13 @@ export const papers = {
       [
         "Paper",
         "https://doi.org/10.1103/PhysRevResearch.5.023200"
+      ],
+      [
+        "Preprint",
+        "https://arxiv.org/abs/2212.09205"
       ]
-    ]
+    ],
+    "date": "2023-06-28"
   },
   "deeponet": {
     "title": "Quantum DeepONet: Neural operators accelerated by quantum computing",
@@ -98,8 +107,13 @@ export const papers = {
       [
         "Paper",
         "https://quantum-journal.org/papers/q-2025-06-04-1761/"
+      ],
+      [
+        "Preprint",
+        "https://arxiv.org/abs/2409.15683"
       ]
-    ]
+    ],
+    "date": "2025-06-04"
   },
   "hhl": {
     "title": "An Early Investigation of the HHL Quantum Linear Solver for Scientific Applications",
@@ -117,7 +131,8 @@ export const papers = {
         "https://arxiv.org/abs/2404.19067"
       ]
     ],
-    "doi": "10.3390/a18080491"
+    "doi": "10.3390/a18080491",
+    "date": "2025-08-06"
   },
   "bayesian": {
     "title": "A Bayesian Approach for Characterizing and Mitigating Gate and Measurement Errors",
@@ -125,13 +140,18 @@ export const papers = {
     "year": 2023,
     "status": "Published",
     "doi": "10.1145/3563397",
-    "authors": "Muqing Zheng, Ang Li, Tamás Terlaky, and Xiu Yang",
+    "authors": "Muqing Zheng, Ang Li, Tamás Terlaky, Xiu Yang",
     "links": [
       [
         "Paper",
         "https://doi.org/10.1145/3563397"
+      ],
+      [
+        "Preprint",
+        "https://arxiv.org/abs/2010.09188"
       ]
-    ]
+    ],
+    "date": "2023-02-24"
   },
   "power": {
     "title": "Early Exploration of a Flexible Framework for Efficient Quantum Linear Solvers in Power Systems",
@@ -139,13 +159,18 @@ export const papers = {
     "year": 2024,
     "status": "Published",
     "doi": "10.1109/PESGM51994.2024.10688916",
-    "authors": "Muqing Zheng, Yousu Chen, Xiu Yang, and Ang Li",
+    "authors": "Muqing Zheng, Yousu Chen, Xiu Yang, Ang Li",
     "links": [
       [
         "Paper",
         "https://doi.org/10.1109/PESGM51994.2024.10688916"
+      ],
+      [
+        "Preprint",
+        "https://arxiv.org/abs/2402.08136"
       ]
-    ]
+    ],
+    "date": "2024-07-21"
   },
   "perspective": {
     "title": "A Perspective on Quantum Computing Applications in Quantum Chemistry Using 25–100 Logical Qubits",
@@ -162,7 +187,9 @@ export const papers = {
         "Preprint",
         "https://arxiv.org/abs/2506.19337"
       ]
-    ]
+    ],
+    "authors": "Yuri Alexeev, Victor S. Batista, Nicholas Bauman, Luke Bertels, Daniel Claudino, Rishab Dutta, Laura Gagliardi, Scott Godwin, Niranjan Govind, Martin Head-Gordon, Matthew R. Hermes, Karol Kowalski, Ang Li, Chenxu Liu, Junyu Liu, Ping Liu, Juan M. García-Lastra, Daniel Mejia-Rodriguez, Karl Mueller, Matthew Otten, Bo Peng, Mark Raugas, Markus Reiher, Paul Rigor, Wendy J. Shaw, Mark van Schilfgaarde, Tejs Vegge, Yu Zhang, Muqing Zheng, Linghua Zhu",
+    "date": "2025-11-11"
   },
   "qasmtrans": {
     "title": "QASMTrans: A QASM Quantum Transpiler Framework for NISQ Devices",
@@ -174,9 +201,14 @@ export const papers = {
       [
         "Paper",
         "https://doi.org/10.1145/3624062.3624222"
+      ],
+      [
+        "Preprint",
+        "https://arxiv.org/abs/2308.07581"
       ]
     ],
-    "authors": "Fei Hua, Meng Wang, Gushu Li, Bo Peng, Chenxu Liu, Muqing Zheng, Samuel Stein, Yufei Ding, Eddy Z. Zhang, Travis Humble, Ang Li"
+    "authors": "Fei Hua, Meng Wang, Gushu Li, Bo Peng, Chenxu Liu, Muqing Zheng, Samuel Stein, Yufei Ding, Eddy Z. Zhang, Travis Humble, Ang Li",
+    "date": "2023-11-12"
   },
   "tanq": {
     "title": "TANQ-Sim: Tensorcore Accelerated Noisy Quantum System Simulation via QIR on Perlmutter HPC",
@@ -188,7 +220,9 @@ export const papers = {
         "Preprint",
         "https://arxiv.org/abs/2404.13184"
       ]
-    ]
+    ],
+    "authors": "Ang Li, Chenxu Liu, Samuel Stein, In-Saeng Suh, Muqing Zheng, Meng Wang, Yue Shi, Bo Fang, Martin Roetteler, Travis Humble",
+    "date": "2024-04-19"
   },
   "aqm": {
     "title": "AQM: A Refresh of the Abstract Qubit Model for Quantum Computing Co-design",
@@ -200,33 +234,108 @@ export const papers = {
         "Preprint",
         "https://arxiv.org/abs/2403.11329"
       ]
-    ]
+    ],
+    "authors": "Chenxu Liu, Samuel A. Stein, Muqing Zheng, James Ang, Ang Li",
+    "date": "2024-03-17"
   },
   "purification": {
     "title": "Design of an Entanglement Purification Protocol Selection Module",
-    "venue": "IEEE International Conference on Quantum Computing and Engineering",
+    "venue": "IEEE QCE 2025, 268–271",
     "year": 2025,
     "status": "Published",
-    "authors": "Yue Shi, Chenxu Liu, Samuel Stein, Meng Wang, Muqing Zheng, and Ang Li",
+    "authors": "Yue Shi, Chenxu Liu, Samuel Stein, Meng Wang, Muqing Zheng, Ang Li",
     "links": [
+      [
+        "Paper",
+        "https://doi.org/10.1109/QCE65121.2025.10332"
+      ],
       [
         "Preprint",
         "https://arxiv.org/abs/2405.02555"
       ]
-    ]
+    ],
+    "doi": "10.1109/QCE65121.2025.10332",
+    "date": "2025-08-30"
   },
-  "solvation": {
-    "title": "Graphical Gaussian process regression model for aqueous solvation free energy prediction of organic molecules in redox flow batteries",
-    "venue": "Physical Chemistry Chemical Physics 23, 24892–24904",
-    "year": 2021,
+  "lchs": {
+    "title": "Gate-level quantum simulation of nonunitary linear dynamics with hybrid oscillator–qubit architecture",
+    "venue": "Quantum Science and Technology",
+    "year": 2026,
+    "date": "2026-09-04",
     "status": "Published",
-    "authors": "Peiyuan Gao, Xiu Yang, Yu-Hang Tang, Muqing Zheng, Amity Andersen, Vijayakumar Murugesan, Aaron Hollas, and Wei Wang",
+    "authors": "Elin Ranjan Das, Muqing Zheng, Rishab Dutta, Ang Li, Tim Stavenger, Yuan Liu",
+    "links": [
+      [
+        "Paper",
+        "https://doi.org/10.1088/2058-9565/aea2c6"
+      ],
+      [
+        "Preprint",
+        "https://arxiv.org/abs/2605.10708"
+      ]
+    ],
+    "doi": "10.1088/2058-9565/aea2c6"
+  },
+  "qflow": {
+    "title": "Quantum Information Harvesting with the Parallel Quantum Flow Algorithm",
+    "venue": "arXiv",
+    "year": 2026,
+    "date": "2026-06-02",
+    "status": "Preprint",
+    "authors": "Nicholas P. Bauman, Ajay Panyala, Chenxu Liu, Muqing Zheng, Meng Wang, Karol Kowalski",
     "links": [
       [
         "Preprint",
-        "https://arxiv.org/abs/2106.08146"
+        "https://arxiv.org/abs/2606.04186"
       ]
     ]
+  },
+  "qhd": {
+    "title": "Benchmarking and Resource Analysis for Augmented-Lagrangian Quantum Hamiltonian Descent",
+    "venue": "arXiv",
+    "year": 2026,
+    "date": "2026-05-12",
+    "status": "Preprint",
+    "authors": "Zeguan Wu, Mingze Li, Muqing Zheng, Meng Wang, Junyu Liu, Samuel Stein, Ang Li, Yousu Chen, Chenxu Liu",
+    "links": [
+      [
+        "Preprint",
+        "https://arxiv.org/abs/2605.12066"
+      ]
+    ]
+  },
+  "qhdEncoding": {
+    "title": "Encoding Choices and Fault-Tolerant Resource Estimates for Digital Quantum Hamiltonian Descent",
+    "venue": "arXiv",
+    "year": 2026,
+    "date": "2026-07-18",
+    "status": "Preprint",
+    "authors": "Chenxu Liu, Meng Wang, Mingze Li, Muqing Zheng, Samuel Stein, Yousu Chen",
+    "links": [
+      [
+        "Preprint",
+        "https://arxiv.org/abs/2607.16996"
+      ]
+    ]
+  },
+  "qasmtrans2026": {
+    "title": "QASMTrans: An End-to-End QASM Compilation Framework with Pulse Generation for Near-Term Quantum Devices",
+    "venue": "ACM Transactions on Quantum Computing",
+    "year": 2026,
+    "date": "2026-08-05",
+    "status": "Published",
+    "authors": "Aaron Hoyt, Meng Wang, Fei Hua, Chunshu Wu, Chenxu Liu, Muqing Zheng, Samuel Stein, Drew Rebar, Yufei Ding, Travis Humble, Ang Li",
+    "links": [
+      [
+        "Paper",
+        "https://doi.org/10.1145/3837861"
+      ],
+      [
+        "Preprint",
+        "https://arxiv.org/abs/2602.05154"
+      ]
+    ],
+    "doi": "10.1145/3837861"
   }
 };
 
@@ -258,45 +367,48 @@ export const projects = [
     "detail": "Building on hybrid CV–DV methods for linear combinations of Hamiltonian simulation.",
     "contribution": "Algorithm research and numerical implementation.",
     "papers": [
+      "lchs",
       "hybrid"
     ],
     "links": [
       [
-        "Earlier work",
+        "Code",
         "https://github.com/Firepanda415/CV-DV-LCHS"
       ]
     ]
   },
   {
     "id": "downfolding",
-    "title": "Downfolding & QFlow",
-    "subtitle": "Working with smaller quantum problems.",
+    "title": "Quantum chemistry in reduced spaces",
+    "subtitle": "Electronic structure through smaller subspaces.",
     "type": "Quantum chemistry",
     "group": "current",
     "status": "Ongoing",
     "visual": "downfolding",
-    "description": "Implementing downfolding and quantum-flow methods for correlated electronic systems, in collaboration with Karol Kowalski.",
-    "detail": "Computational implementations of downfolding and quantum-flow methods for quantum chemistry.",
-    "contribution": "Method implementation in collaboration with Karol Kowalski.",
+    "description": "Downfolding, QFlow, QuGCM, and ADAPT-GCiM for electronic-structure calculations in reduced spaces.",
+    "detail": "Effective Hamiltonians and nonorthogonal many-body bases offer complementary ways to capture electron correlation with smaller quantum calculations.",
+    "contribution": "Algorithm development and implementation in collaboration with Karol Kowalski and colleagues.",
     "papers": [
-      "downfolding"
+      "qflow",
+      "downfolding",
+      "perspective",
+      "gcim",
+      "gcm"
     ],
     "links": []
   },
   {
-    "id": "gcm",
-    "title": "Quantum chemistry & subspace methods",
-    "subtitle": "Quantum chemistry through subspaces.",
-    "type": "Quantum chemistry",
+    "id": "quantum-optimization",
+    "title": "Quantum optimization",
+    "subtitle": "Optimization through quantum dynamics.",
+    "type": "Quantum algorithms",
     "group": "research",
-    "status": "Published work",
-    "visual": "subspace",
-    "description": "Studying generator coordinate and generator coordinate inspired methods for quantum chemistry.",
-    "detail": "Related studies explore quantum subspace methods and alternatives to constrained variational optimization.",
+    "status": "Preprint work",
+    "visual": "operator",
+    "description": "Benchmarking quantum Hamiltonian descent and estimating its resources for continuous optimization.",
     "papers": [
-      "gcim",
-      "gcm",
-      "perspective"
+      "qhdEncoding",
+      "qhd"
     ],
     "links": []
   },
@@ -306,7 +418,7 @@ export const projects = [
     "subtitle": "Algorithms for scientific models.",
     "type": "Scientific computing",
     "group": "research",
-    "status": "Published & preprint work",
+    "status": "Published work",
     "visual": "operator",
     "description": "Exploring quantum neural operators and linear solvers for scientific applications.",
     "detail": "This collection brings together work on Quantum DeepONet and investigations of the HHL quantum linear solver.",
@@ -341,64 +453,25 @@ export const projects = [
     "visual": "workflow",
     "description": "Collaborative work on quantum compilation, noisy simulation, hardware co-design, and entanglement purification.",
     "papers": [
+      "qasmtrans2026",
       "purification",
       "tanq",
       "aqm",
       "qasmtrans"
     ],
     "links": []
-  },
+  }
+];
+
+export const elsewhere = [
   {
-    "id": "molecular-learning",
-    "title": "Learning molecular properties",
-    "subtitle": "From molecular graphs to predictions.",
-    "type": "Scientific machine learning",
-    "group": "research",
-    "status": "Published work",
-    "visual": "subspace",
-    "description": "Graphical Gaussian process regression for solvation free-energy prediction in redox flow batteries.",
-    "papers": [
-      "solvation"
-    ],
-    "links": []
-  },
-  {
-    "id": "research-skills",
     "title": "Research & Scientific Library Skills",
-    "subtitle": "Tools for the research process.",
-    "type": "Research tools",
-    "group": "elsewhere",
-    "status": "Open source",
-    "visual": "workflow",
-    "description": "A maintained collection of Codex skills for research planning, scientific computing, writing, figures, and review.",
-    "detail": "The collection includes original work and adaptations of upstream skills, with attribution documented in the repository.",
-    "papers": [],
-    "links": [
-      [
-        "Repository",
-        "https://github.com/Firepanda415/research-and-scientific-lib-skills"
-      ]
-    ]
+    "url": "https://github.com/Firepanda415/research-and-scientific-lib-skills",
+    "description": "Codex skills for research planning, scientific computing, writing, and review."
   },
   {
-    "id": "starfield",
     "title": "Starfield Skill Planner",
-    "subtitle": "A small tool for a large universe.",
-    "type": "Personal project",
-    "group": "elsewhere",
-    "status": "Open source",
-    "visual": "constellation",
-    "description": "Plan skill ranks, check level requirements, and export console commands. Runs locally, in English or Chinese.",
-    "papers": [],
-    "links": [
-      [
-        "Open planner",
-        "https://firepanda415.github.io/Starfield_SkillTree_Generator/"
-      ],
-      [
-        "Repository",
-        "https://github.com/Firepanda415/Starfield_SkillTree_Generator"
-      ]
-    ]
+    "url": "https://firepanda415.github.io/Starfield_SkillTree_Generator/",
+    "description": "Plan Starfield character builds and export console commands, in English or Chinese."
   }
 ];
