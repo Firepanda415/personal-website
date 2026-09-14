@@ -32,4 +32,8 @@ npm run build
 
 Generated files are written to `dist/`. Pushes to `main` are tested and deployed to GitHub Pages by `.github/workflows/pages.yml`.
 
-The deployment fetches both tool repositories each time. After tool updates, run the Publish website workflow to refresh the hosted copies.
+The deployment fetches both tool repositories each time. Each tool repository triggers this workflow when a commit is pushed to `main`.
+
+For cross-repository publishing, create a fine-grained GitHub token restricted to `Firepanda415/personal-website`, with repository permission **Actions: Read and write**. Save it as the Actions secret `WEBSITE_PUBLISH_TOKEN` in both tool repositories. Renew the secret when the token expires. The default `GITHUB_TOKEN` cannot trigger workflows in another repository.
+
+You can also run the Publish website workflow manually to refresh both tools.
