@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { readFile, access } from 'node:fs/promises';
+import { readFile, access, stat } from 'node:fs/promises';
 import { build, escape, link } from './build.mjs';
 import { projects, papers } from './data.mjs';
 
@@ -19,6 +19,11 @@ test('pages build with valid structure and links', async () => {
   for (const [,asset] of wd.matchAll(/(?:src|href)="(\.\/[^\"]+)"/g)) await access(new URL(asset, wdUrl));
   await access(new URL('core.mjs', wdUrl));
   await access(new URL('THIRD_PARTY_NOTICES.md', wdUrl));
+  const tileManifest = JSON.parse(await readFile(new URL('assets/maps/manifest.json', wdUrl), 'utf8'));
+  assert.ok(Object.keys(tileManifest.files).length > 0);
+  for (const [path, {bytes}] of Object.entries(tileManifest.files)) {
+    assert.equal((await stat(new URL(`assets/maps/${path}`, wdUrl))).size, bytes, `Missing or truncated map tile: ${path}`);
+  }
   assert.equal(new Set(projects.map(p=>p.id)).size,projects.length);
   const referenced = projects.flatMap(p=>p.papers);
   assert.deepEqual([...new Set(referenced)].sort(),Object.keys(papers).sort());

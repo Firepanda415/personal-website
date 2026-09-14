@@ -1,4 +1,4 @@
-import { mkdir, writeFile, copyFile } from 'node:fs/promises';
+import { mkdir, writeFile, copyFile, cp } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { resolve, join } from 'node:path';
 import { person, papers, projects, elsewhere, reading, journals } from './data.mjs';
@@ -91,6 +91,7 @@ export async function build() {
   for (const name of ['index.html', 'style.css', 'app.js', 'core.mjs', 'favicon.svg', 'THIRD_PARTY_NOTICES.md']) {
     await copyFile(resolve(wardogs, name), new URL(`./dist/wdtool/${name}`, import.meta.url));
   }
+  await cp(resolve(wardogs, 'assets/maps'), new URL('./dist/wdtool/assets/maps/', import.meta.url), {recursive:true});
   for (const [page,content] of [['about',about()],['experience',experience()],['projects',projectPage()]]) {
     await writeFile(new URL(`./dist/${page==='about'?'index':page}.html`,import.meta.url),layout(page,content));
   }
