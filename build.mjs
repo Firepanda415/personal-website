@@ -1,5 +1,6 @@
 import { mkdir, writeFile, copyFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
+import { resolve, join } from 'node:path';
 import { person, papers, projects, elsewhere, reading, journals } from './data.mjs';
 
 export const escape = value => String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -78,6 +79,12 @@ function layout(page, content) {
 }
 
 export async function build() {
+  const planner = process.env.SF_SKILLS_DIR || fileURLToPath(new URL('../Starfield_SkillTree_Generator/', import.meta.url));
+  const destination = fileURLToPath(new URL('./dist/sf_skills/', import.meta.url));
+  await mkdir(join(destination, 'data'), {recursive:true});
+  for (const name of ['index.html', 'styles.css', 'app.js', 'data/data.js', 'LICENSE']) {
+    await copyFile(resolve(planner, name), join(destination, name));
+  }
   await mkdir(new URL('./dist/', import.meta.url), {recursive:true});
   for (const [page,content] of [['about',about()],['experience',experience()],['projects',projectPage()]]) {
     await writeFile(new URL(`./dist/${page==='about'?'index':page}.html`,import.meta.url),layout(page,content));

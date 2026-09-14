@@ -486,7 +486,7 @@ export const elsewhere = [
   },
   {
     "title": "Starfield Skill Planner",
-    "url": "https://firepanda415.github.io/Starfield_SkillTree_Generator/",
+    "url": "https://mqzh.science/sf_skills/",
     "description": "Plan Starfield character builds and export console commands, in English or Chinese."
   }
 ];

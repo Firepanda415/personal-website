@@ -18,10 +18,16 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: Firepanda415/Starfield_SkillTree_Generator
+          path: work/sf-skills
       - uses: actions/setup-node@v4
         with:
           node-version: 22
       - run: npm test
+        env:
+          SF_SKILLS_DIR: work/sf-skills
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
