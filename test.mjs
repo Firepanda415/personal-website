@@ -6,13 +6,19 @@ import { projects, papers } from './data.mjs';
 
 test('pages build with valid structure and links', async () => {
   await build();
-  const plannerUrl = new URL('dist/sf_skills/index.html', import.meta.url);
+  const plannerUrl = new URL('dist/sfskills/index.html', import.meta.url);
   const planner = await readFile(plannerUrl, 'utf8');
   assert.match(planner, /Starfield Skill Command Generator/);
   for (const [,asset] of planner.matchAll(/(?:src|href)="(\.\/[^\"]+)"/g)) {
     await access(new URL(asset, plannerUrl));
   }
   await access(new URL('LICENSE', plannerUrl));
+  const wdUrl = new URL('dist/wdtool/index.html', import.meta.url);
+  const wd = await readFile(wdUrl, 'utf8');
+  assert.match(wd, /WARDOGS/);
+  for (const [,asset] of wd.matchAll(/(?:src|href)="(\.\/[^\"]+)"/g)) await access(new URL(asset, wdUrl));
+  await access(new URL('core.mjs', wdUrl));
+  await access(new URL('THIRD_PARTY_NOTICES.md', wdUrl));
   assert.equal(new Set(projects.map(p=>p.id)).size,projects.length);
   const referenced = projects.flatMap(p=>p.papers);
   assert.deepEqual([...new Set(referenced)].sort(),Object.keys(papers).sort());

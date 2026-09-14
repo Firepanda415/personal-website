@@ -6,7 +6,7 @@ A static site built with Node.js, with pages for biography, professional experie
 
 ## Local development
 
-Clone [Starfield Skill Planner](https://github.com/Firepanda415/Starfield_SkillTree_Generator) alongside this repository, or set "SF_SKILLS_DIR" to its local directory. The build includes it at /sf_skills/.
+Clone [Starfield Skill Planner](https://github.com/Firepanda415/Starfield_SkillTree_Generator) and [WARDOGS Map & Range Tool](https://github.com/Firepanda415/MZ-Wardogs) alongside this repository, or set `SF_SKILLS_DIR` and `WDTOOL_DIR` to their local directories. The build includes them at `/sfskills/` and `/wdtool/`.
 
 ```sh
 conda env create -f environment.yml
@@ -32,4 +32,4 @@ npm run build
 
 Generated files are written to `dist/`. Pushes to `main` are tested and deployed to GitHub Pages by `.github/workflows/pages.yml`.
 
-The deployment fetches the planner repository each time. After planner updates, run the Publish website workflow to refresh the hosted copy.
+The deployment fetches both tool repositories each time. After tool updates, run the Publish website workflow to refresh the hosted copies.

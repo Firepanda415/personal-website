@@ -80,12 +80,17 @@ function layout(page, content) {
 
 export async function build() {
   const planner = process.env.SF_SKILLS_DIR || fileURLToPath(new URL('../Starfield_SkillTree_Generator/', import.meta.url));
-  const destination = fileURLToPath(new URL('./dist/sf_skills/', import.meta.url));
+  const destination = fileURLToPath(new URL('./dist/sfskills/', import.meta.url));
   await mkdir(join(destination, 'data'), {recursive:true});
   for (const name of ['index.html', 'styles.css', 'app.js', 'data/data.js', 'LICENSE']) {
     await copyFile(resolve(planner, name), join(destination, name));
   }
   await mkdir(new URL('./dist/', import.meta.url), {recursive:true});
+  const wardogs = process.env.WDTOOL_DIR || fileURLToPath(new URL('../MZ-Wardogs/', import.meta.url));
+  await mkdir(new URL('./dist/wdtool/', import.meta.url), {recursive:true});
+  for (const name of ['index.html', 'style.css', 'app.js', 'core.mjs', 'favicon.svg', 'THIRD_PARTY_NOTICES.md']) {
+    await copyFile(resolve(wardogs, name), new URL(`./dist/wdtool/${name}`, import.meta.url));
+  }
   for (const [page,content] of [['about',about()],['experience',experience()],['projects',projectPage()]]) {
     await writeFile(new URL(`./dist/${page==='about'?'index':page}.html`,import.meta.url),layout(page,content));
   }

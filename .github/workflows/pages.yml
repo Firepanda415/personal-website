@@ -22,12 +22,18 @@ jobs:
         with:
           repository: Firepanda415/Starfield_SkillTree_Generator
           path: work/sf-skills
+      - uses: actions/checkout@v4
+        with:
+          repository: Firepanda415/MZ-Wardogs
+          path: work/wdtool
       - uses: actions/setup-node@v4
         with:
           node-version: 22
       - run: npm test
         env:
           SF_SKILLS_DIR: work/sf-skills
+          WDTOOL_DIR: work/wdtool
+      - run: node work/wdtool/test.mjs
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

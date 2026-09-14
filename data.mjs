@@ -486,8 +486,13 @@ export const elsewhere = [
   },
   {
     "title": "Starfield Skill Planner",
-    "url": "https://mqzh.science/sf_skills/",
+    "url": "https://mqzh.science/sfskills/",
     "description": "Plan Starfield character builds and export console commands, in English or Chinese."
+  },
+  {
+    "title": "WARDOGS Map & Range Tool",
+    "url": "https://mqzh.science/wdtool/",
+    "description": "Mark maps and calculate distances, bearings, and weapon ranges in WARDOGS, in English or Chinese."
   }
 ];
 
