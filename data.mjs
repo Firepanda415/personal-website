@@ -490,7 +490,7 @@ export const elsewhere = [
     "description": "Plan Starfield character builds and export console commands, in English or Chinese."
   },
   {
-    "title": "WARDOGS Map & Range Tool",
+    "title": "Artillery · Map · Nav for Wardogs",
     "url": "https://mqzh.science/wdtool/",
     "description": "Mark maps and calculate distances, bearings, and weapon ranges in WARDOGS, in English or Chinese."
   }
