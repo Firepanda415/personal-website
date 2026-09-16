@@ -17,7 +17,7 @@ test('pages build with valid structure and links', async () => {
   const wd = await readFile(wdUrl, 'utf8');
   assert.match(wd, /WARDOGS/);
   for (const [,asset] of wd.matchAll(/(?:src|href)="(\.\/[^\"]+)"/g)) await access(new URL(asset, wdUrl));
-  await access(new URL('core.mjs', wdUrl));
+  for (const name of ['core.mjs','roads-bakurani.mjs','routing.mjs']) await access(new URL(name, wdUrl));
   await access(new URL('THIRD_PARTY_NOTICES.md', wdUrl));
   const tileManifest = JSON.parse(await readFile(new URL('assets/maps/manifest.json', wdUrl), 'utf8'));
   assert.ok(Object.keys(tileManifest.files).length > 0);
