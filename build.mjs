@@ -88,7 +88,7 @@ export async function build() {
   await mkdir(new URL('./dist/', import.meta.url), {recursive:true});
   const wardogs = process.env.WDTOOL_DIR || fileURLToPath(new URL('../MZ-Wardogs/', import.meta.url));
   await mkdir(new URL('./dist/wdtool/', import.meta.url), {recursive:true});
-  for (const name of ['index.html', 'style.css', 'app.js', 'core.mjs', 'roads-bakurani.mjs', 'routing.mjs', 'favicon.svg', 'THIRD_PARTY_NOTICES.md']) {
+  for (const name of ['index.html', 'style.css', 'app.js', 'core.mjs', 'roads-bakurani.mjs', 'roads-ozeti.mjs', 'roads-zestafona.mjs', 'routing.mjs', 'favicon.svg', 'THIRD_PARTY_NOTICES.md']) {
     await copyFile(resolve(wardogs, name), new URL(`./dist/wdtool/${name}`, import.meta.url));
   }
   await cp(resolve(wardogs, 'assets/maps'), new URL('./dist/wdtool/assets/maps/', import.meta.url), {recursive:true});
