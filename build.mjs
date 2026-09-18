@@ -1,6 +1,6 @@
-import { mkdir, writeFile, copyFile, cp } from 'node:fs/promises';
+import { mkdir, writeFile, copyFile, cp, rm } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
-import { resolve, join } from 'node:path';
+import { resolve, join, sep } from 'node:path';
 import { person, papers, projects, elsewhere, reading, journals } from './data.mjs';
 
 export const escape = value => String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -88,10 +88,16 @@ export async function build() {
   await mkdir(new URL('./dist/', import.meta.url), {recursive:true});
   const wardogs = process.env.WDTOOL_DIR || fileURLToPath(new URL('../MZ-Wardogs/', import.meta.url));
   await mkdir(new URL('./dist/wdtool/', import.meta.url), {recursive:true});
-  for (const name of ['index.html', 'style.css', 'app.js', 'core.mjs', 'roads-bakurani.mjs', 'roads-ozeti.mjs', 'roads-zestafona.mjs', 'routing.mjs', 'favicon.svg', 'THIRD_PARTY_NOTICES.md']) {
+  for (const name of ['index.html', 'style.css', 'app.js', 'core.mjs', 'map-assets.mjs', 'roads-bakurani.mjs', 'roads-ozeti.mjs', 'roads-zestafona.mjs', 'routing.mjs', 'favicon.svg', 'THIRD_PARTY_NOTICES.md']) {
     await copyFile(resolve(wardogs, name), new URL(`./dist/wdtool/${name}`, import.meta.url));
   }
-  await cp(resolve(wardogs, 'assets/maps'), new URL('./dist/wdtool/assets/maps/', import.meta.url), {recursive:true});
+  const wdOutput = fileURLToPath(new URL('./dist/wdtool/', import.meta.url));
+  const oldMaps = resolve(wdOutput, 'assets/maps');
+  if (!oldMaps.startsWith(resolve(wdOutput) + sep)) throw new Error('Map cleanup outside website output');
+  await rm(oldMaps, {recursive:true, force:true});
+  await cp(resolve(wardogs, 'assets/maps-display'), new URL('./dist/wdtool/assets/maps-display/', import.meta.url), {recursive:true});
+  await mkdir(join(wdOutput, 'docs'), {recursive:true});
+  await copyFile(resolve(wardogs, 'docs/road-review-3d.json'), join(wdOutput, 'docs/road-review-3d.json'));
   for (const [page,content] of [['about',about()],['experience',experience()],['projects',projectPage()]]) {
     await writeFile(new URL(`./dist/${page==='about'?'index':page}.html`,import.meta.url),layout(page,content));
   }

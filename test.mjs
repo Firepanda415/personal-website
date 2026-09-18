@@ -21,10 +21,11 @@ test('pages build with valid structure and links', async () => {
   const wdApp = await readFile(wdAppUrl, 'utf8');
   for (const [,module] of wdApp.matchAll(/\bfrom\s*['"](\.\/[^'"]+)['"]/g)) await access(new URL(module, wdAppUrl));
   await access(new URL('THIRD_PARTY_NOTICES.md', wdUrl));
-  const tileManifest = JSON.parse(await readFile(new URL('assets/maps/manifest.json', wdUrl), 'utf8'));
+  await assert.rejects(access(new URL('assets/maps/', wdUrl)), {code:'ENOENT'});
+  const tileManifest = JSON.parse(await readFile(new URL('assets/maps-display/manifest.json', wdUrl), 'utf8'));
   assert.ok(Object.keys(tileManifest.files).length > 0);
   for (const [path, {bytes}] of Object.entries(tileManifest.files)) {
-    assert.equal((await stat(new URL(`assets/maps/${path}`, wdUrl))).size, bytes, `Missing or truncated map tile: ${path}`);
+    assert.equal((await stat(new URL(`assets/maps-display/${path}`, wdUrl))).size, bytes, `Missing or truncated map tile: ${path}`);
   }
   assert.equal(new Set(projects.map(p=>p.id)).size,projects.length);
   const referenced = projects.flatMap(p=>p.papers);
