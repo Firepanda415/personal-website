@@ -8,10 +8,13 @@ import sys
 from pathlib import Path
 
 import numpy as np
+from PIL import ImageFont
 
 FFMPEG = str(Path(sys.executable).with_name("ffmpeg"))
 FONTS = Path(__file__).resolve().parent / "fonts"
 HOLD = 0.8  # seconds a line stays up into a pause before the next line
+SUB_PX, MAX_LINE_PX = 46, 1760  # subtitle font size and widest line, in 1080p pixels
+SUB_FONT = ImageFont.truetype(str(FONTS / "IBMPlexSans-Regular.ttf"), SUB_PX)
 # The subtitle strip is the bottom 0.9 of 8.9 frame units (house_style.CAPTION_BAND).
 BAND_CENTER_Y = round(1080 * (1 - 0.45 / 8.9))
 
@@ -23,7 +26,7 @@ WrapStyle: 2
 
 [V4+ Styles]
 Format: Name, Fontname, Fontsize, PrimaryColour, OutlineColour, BackColour, Bold, Italic, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
-Style: Sub,IBM Plex Sans,46,&H002D2B24,&H00000000,&H00000000,0,0,1,0,0,5,40,40,0,1
+Style: Sub,IBM Plex Sans,{SUB_PX},&H002D2B24,&H00000000,&H00000000,0,0,1,0,0,5,40,40,0,1
 
 [Events]
 Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
@@ -33,6 +36,31 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
 def stamp(t):
     cs = round(t * 100)
     return f"{cs // 360000}:{cs // 6000 % 60:02d}:{cs // 100 % 60:02d}.{cs % 100:02d}"
+
+
+def fit_width(cues):
+    """Split any subtitle line wider than the frame into balanced pieces timed by length."""
+    out = []
+    for start, end, text in cues:
+        words, n = text.split(), 1
+        while True:
+            target = SUB_FONT.getlength(text) / n
+            chunks, current = [], []
+            for w in words:
+                if current and SUB_FONT.getlength(" ".join(current + [w])) > target * 1.08 and len(chunks) < n - 1:
+                    chunks.append(" ".join(current))
+                    current = []
+                current.append(w)
+            chunks.append(" ".join(current))
+            if all(SUB_FONT.getlength(c) <= MAX_LINE_PX for c in chunks):
+                break
+            n += 1
+        total, t = sum(len(c) for c in chunks), start
+        for c in chunks:
+            dt = (end - start) * len(c) / total
+            out.append((t, t + dt, c))
+            t += dt
+    return out
 
 
 def write_ass(cues, path):
@@ -60,7 +88,7 @@ def main(rendered, cues, stem, poster):
     video = stem.with_suffix(".mp4")
     ass = Path(cues).with_suffix(".ass")
     cues = json.loads(Path(cues).read_text())
-    write_ass(cues, ass)
+    write_ass(fit_width(cues), ass)
     subprocess.run([FFMPEG, "-y", "-loglevel", "error", "-i", rendered, "-vf", f"subtitles={ass}:fontsdir={FONTS}",
                     "-c:v", "libx264", "-preset", "slow", "-crf", "24", "-tune", "animation", "-pix_fmt", "yuv420p",
                     "-af", "loudnorm=I=-16:TP=-1.5:LRA=11", "-c:a", "aac", "-b:a", "128k", "-ar", "48000",

@@ -80,7 +80,12 @@ export const papers = {
         "https://arxiv.org/abs/2312.07691"
       ]
     ],
-    "date": "2024-12-03"
+    "date": "2024-12-03",
+    "explainer": {
+      "video": "explainers/gcim.mp4",
+      "poster": "explainers/gcim.jpg",
+      "duration": "3:52"
+    }
   },
   "gcm": {
     "title": "Quantum algorithms for generator coordinate methods",
@@ -118,7 +123,12 @@ export const papers = {
         "https://arxiv.org/abs/2409.15683"
       ]
     ],
-    "date": "2025-06-04"
+    "date": "2025-06-04",
+    "explainer": {
+      "video": "explainers/deeponet.mp4",
+      "poster": "explainers/deeponet.jpg",
+      "duration": "5:26"
+    }
   },
   "hhl": {
     "title": "An Early Investigation of the HHL Quantum Linear Solver for Scientific Applications",

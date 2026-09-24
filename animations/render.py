@@ -13,7 +13,8 @@ sys.path.insert(0, str(HERE))
 import tts
 
 # video id: (scene class, poster still scene)
-VIDEOS = {"lchs": ("LCHSExplainer", "LCHSPoster"), "downfolding": ("DownfoldingExplainer", "DownfoldingPoster")}
+VIDEOS = {"lchs": ("LCHSExplainer", "LCHSPoster"), "downfolding": ("DownfoldingExplainer", "DownfoldingPoster"),
+          "gcim": ("GCIMExplainer", "GCIMPoster"), "deeponet": ("DeepONetExplainer", "DeepONetPoster")}
 
 
 def main(name, preview=False):

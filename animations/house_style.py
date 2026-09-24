@@ -4,6 +4,7 @@ Colors follow style.css on mqzh.science. Text uses IBM Plex Sans from fonts/.
 Mathematics is typeset by Typst (New Computer Modern Math) and imported as SVG.
 """
 import hashlib
+import itertools
 import json
 import re
 import subprocess
@@ -130,14 +131,39 @@ def card(lines, width, color=LINE, pad=0.3):
 
 CAPTION_BAND = 0.9   # height of the subtitle strip below the 8-unit design frame
 CAPTION_WORDS = 14   # longest subtitle line, in words
+CAPTION_CHARS = 70   # longest subtitle line, in characters (about 1600 px of Plex at 46 px)
+
+
+# A subtitle line should not end on one of these words.
+_WEAK_END = {"a", "an", "the", "of", "to", "in", "on", "by", "with", "for", "and", "or", "as", "at", "from",
+             "its", "their", "that", "whose", "which", "these", "this", "is", "are", "than", "into", "per", "−"}
+
+
+def _lines(words, n):
+    """Split words into n lines of similar length, preferring breaks after punctuation and
+    avoiding lines that end on an article, preposition, or conjunction."""
+    if n == 1:
+        return [words]
+    sizes = [len(w) + 1 for w in words]
+    ideal = sum(sizes) / n
+    best = None
+    for cuts in itertools.combinations(range(1, len(words)), n - 1):
+        bounds = (0, *cuts, len(words))
+        cost = sum(((sum(sizes[a:b]) - ideal) / ideal) ** 2 for a, b in zip(bounds, bounds[1:]))
+        for c in cuts:
+            last = words[c - 1]
+            cost += (0.15 if last.lower() in _WEAK_END else 0) - (0.06 if last[-1] in ",;:." else 0)
+            cost += 0.08 if words[c] == "of" else 0
+        if best is None or cost < best[0]:
+            best = (cost, bounds)
+    return [words[a:b] for a, b in zip(best[1], best[1][1:])]
 
 
 def cues(start, end, text):
     """Split a narrated sentence into subtitle lines timed in proportion to their length."""
     words = text.split()
-    n = -(-len(words) // CAPTION_WORDS)
-    size = -(-len(words) // n)
-    chunks = [" ".join(words[i:i + size]) for i in range(0, len(words), size)]
+    n = max(-(-len(words) // CAPTION_WORDS), -(-len(text) // CAPTION_CHARS))
+    chunks = [" ".join(line) for line in _lines(words, n)]
     total = sum(len(c) for c in chunks)
     out, t = [], start
     for c in chunks:
