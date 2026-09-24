@@ -39,7 +39,7 @@ test('pages build with valid structure and links', async () => {
     for (const [,href] of html.matchAll(/href="([^"#:]*(?:#[^"]*)?)"/g)) {
       if (!href || href.startsWith('http')) continue;
       const [file,fragment] = href.split('#');
-      const path = new URL(`dist/${file||name}`,import.meta.url);
+      const path = new URL(`dist/${file.split('?')[0]||name}`,import.meta.url);
       await access(path);
       if (fragment) assert.ok((await readFile(path,'utf8')).includes(`id="${fragment}"`),`${name}: broken anchor ${href}`);
     }
@@ -53,7 +53,7 @@ test('pages build with valid structure and links', async () => {
     for (const key of ['video','poster']) {
       assert.ok((await stat(new URL(`dist/${explainer[key]}`,import.meta.url))).size > 0,`Missing explainer ${key}: ${explainer[key]}`);
     }
-    assert.ok(html.includes(`data-explainer="${explainer.video}"`));
+    assert.match(html,new RegExp(`data-explainer="${explainer.video}\\?v=[0-9a-f]{10}"`));
     assert.match(explainer.duration,/^\d+:\d\d$/);
   }
 });

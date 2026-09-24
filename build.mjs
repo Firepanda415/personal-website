@@ -1,4 +1,6 @@
 import { mkdir, writeFile, copyFile, cp, rm } from 'node:fs/promises';
+import { readFileSync } from 'node:fs';
+import { createHash } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { resolve, join, sep } from 'node:path';
 import { person, papers, projects, elsewhere, reading, journals } from './data.mjs';
@@ -49,11 +51,13 @@ function diagram(kind, compact = false) {
   return `<div class="diagram ${compact?'compact':''}"><svg viewBox="0 0 320 200" aria-hidden="true">${drawing}</svg>${compact?'':'<span class="diagram-caption">Conceptual illustration</span>'}</div>`;
 }
 
+// GitHub Pages caches files for ten minutes, so a content hash keeps new HTML from loading old assets.
+const versioned = path => `${path}?v=${createHash('sha256').update(readFileSync(new URL(`./${path}`, import.meta.url))).digest('hex').slice(0, 10)}`;
 const media = path => { if (!/^explainers\/[a-z0-9-]+\.(mp4|jpg)$/.test(path)) throw new Error(`Invalid explainer file: ${path}`); return path; };
 
 function explainer(p) {
   const e = p.explainer;
-  return `<figure class="explainer"><a class="explainer-link" href="${media(e.video)}" data-explainer="${media(e.video)}" data-title="${escape(p.title)}" aria-label="Play explainer animation (${escape(e.duration)}): ${escape(p.title)}"><img src="${media(e.poster)}" alt="" width="640" height="360" loading="lazy"><span class="explainer-play" aria-hidden="true"></span><span class="explainer-time">${escape(e.duration)}</span></a><figcaption><span class="index">Animated explainer</span>${escape(p.title)}</figcaption></figure>`;
+  return `<figure class="explainer"><a class="explainer-link" href="${versioned(media(e.video))}" data-explainer="${versioned(media(e.video))}" data-title="${escape(p.title)}" aria-label="Play explainer animation (${escape(e.duration)}): ${escape(p.title)}"><img src="${versioned(media(e.poster))}" alt="" width="640" height="360" loading="lazy"><span class="explainer-play" aria-hidden="true"></span><span class="explainer-time">${escape(e.duration)}</span></a><figcaption><span class="index">Animated explainer</span>${escape(p.title)}</figcaption></figure>`;
 }
 
 function publication(id) {
@@ -84,7 +88,7 @@ function projectPage() {
 function layout(page, content) {
   const names = {about:'About',experience:'Experience',projects:'Projects'};
   return `<!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Muqing Zheng, Computer Scientist at Pacific Northwest National Laboratory. Quantum algorithms, scientific computing, and research software."><meta name="theme-color" content="#f6f5f1"><meta property="og:title" content="Muqing Zheng | ${names[page]}"><meta property="og:description" content="Quantum algorithms, scientific computing, and research software."><meta property="og:type" content="website"><title>${names[page]} · Muqing Zheng</title><link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="style.css"><script src="site.js" defer></script></head><body><a class="skip-link" href="#main">Skip to content</a><div class="shell"><header class="site-header"><a class="wordmark" href="index.html" aria-label="Muqing Zheng, home">MZ<span class="wordmark-dot">.</span></a><nav aria-label="Main navigation">${Object.entries(names).map(([key,name])=>link(name,key==='about'?'index.html':`${key}.html`,page===key?'aria-current="page"':'')).join('')}</nav></header><main id="main">${content}</main>${content.includes('data-explainer')?explainerDialog:''}<footer></footer></div></body></html>`;
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Muqing Zheng, Computer Scientist at Pacific Northwest National Laboratory. Quantum algorithms, scientific computing, and research software."><meta name="theme-color" content="#f6f5f1"><meta property="og:title" content="Muqing Zheng | ${names[page]}"><meta property="og:description" content="Quantum algorithms, scientific computing, and research software."><meta property="og:type" content="website"><title>${names[page]} · Muqing Zheng</title><link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="${versioned('style.css')}"><script src="${versioned('site.js')}" defer></script></head><body><a class="skip-link" href="#main">Skip to content</a><div class="shell"><header class="site-header"><a class="wordmark" href="index.html" aria-label="Muqing Zheng, home">MZ<span class="wordmark-dot">.</span></a><nav aria-label="Main navigation">${Object.entries(names).map(([key,name])=>link(name,key==='about'?'index.html':`${key}.html`,page===key?'aria-current="page"':'')).join('')}</nav></header><main id="main">${content}</main>${content.includes('data-explainer')?explainerDialog:''}<footer></footer></div></body></html>`;
 }
 
 export async function build() {
