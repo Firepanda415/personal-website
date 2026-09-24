@@ -21,7 +21,8 @@ Open http://127.0.0.1:4173. Run `npm run build` and refresh the browser after ed
 - `data.mjs`: biography, projects, and publications.
 - `build.mjs`: HTML generation and page content.
 - `style.css`: layout and typography.
-- `site.js`: biography copy button.
+- `site.js`: biography copy button and explainer video player.
+- `explainers/`: narrated explainer videos, posters, and captions, built from `animations/` (see `animations/README.md`).
 
 ## Build and deployment
 

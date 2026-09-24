@@ -47,6 +47,16 @@ test('pages build with valid structure and links', async () => {
   const html = await readFile(new URL('dist/projects.html',import.meta.url),'utf8');
   assert.ok(html.indexOf('id="nwqlib"') < html.indexOf('id="quantum-optimization"'));
   assert.match(html,/Public release in preparation/);
+  const explained = Object.values(papers).filter(p=>p.explainer);
+  if (explained.length) assert.equal((html.match(/<dialog class="explainer-dialog"/g)||[]).length,1);
+  for (const {explainer} of explained) {
+    for (const key of ['video','poster','captions']) {
+      assert.ok((await stat(new URL(`dist/${explainer[key]}`,import.meta.url))).size > 0,`Missing explainer ${key}: ${explainer[key]}`);
+    }
+    assert.ok(html.includes(`data-explainer="${explainer.video}"`));
+    assert.match(await readFile(new URL(`dist/${explainer.captions}`,import.meta.url),'utf8'),/^WEBVTT\n/);
+    assert.match(explainer.duration,/^\d+:\d\d$/);
+  }
 });
 
 test('text is escaped and unsafe link protocols rejected', () => {

@@ -1,0 +1,16 @@
+name: personal-website-animations
+channels:
+  - conda-forge
+  - nodefaults
+dependencies:
+  - python>=3.12,<3.13
+  - manim>=0.19
+  - ffmpeg
+  - typst>=0.15
+  - scipy
+  - fonttools
+  - pytorch
+  - pip
+  - pip:
+      - kokoro>=0.9.4
+      - soundfile

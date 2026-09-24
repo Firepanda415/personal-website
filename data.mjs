@@ -274,7 +274,13 @@ export const papers = {
         "https://arxiv.org/abs/2605.10708"
       ]
     ],
-    "doi": "10.1088/2058-9565/aea2c6"
+    "doi": "10.1088/2058-9565/aea2c6",
+    "explainer": {
+      "video": "explainers/lchs.mp4",
+      "poster": "explainers/lchs.jpg",
+      "captions": "explainers/lchs.vtt",
+      "duration": "4:22"
+    }
   },
   "qflow": {
     "title": "Quantum Information Harvesting with the Parallel Quantum Flow Algorithm",

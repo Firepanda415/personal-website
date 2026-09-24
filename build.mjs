@@ -49,14 +49,23 @@ function diagram(kind, compact = false) {
   return `<div class="diagram ${compact?'compact':''}"><svg viewBox="0 0 320 200" aria-hidden="true">${drawing}</svg>${compact?'':'<span class="diagram-caption">Conceptual illustration</span>'}</div>`;
 }
 
+const media = path => { if (!/^explainers\/[a-z0-9-]+\.(mp4|jpg|vtt)$/.test(path)) throw new Error(`Invalid explainer file: ${path}`); return path; };
+
+function explainer(p) {
+  const e = p.explainer;
+  return `<figure class="explainer"><a class="explainer-link" href="${media(e.video)}" data-explainer="${media(e.video)}" data-captions="${media(e.captions)}" data-title="${escape(p.title)}" aria-label="Play explainer animation (${escape(e.duration)}): ${escape(p.title)}"><img src="${media(e.poster)}" alt="" width="640" height="360" loading="lazy"><span class="explainer-play" aria-hidden="true"></span><span class="explainer-time">${escape(e.duration)}</span></a><figcaption><span class="index">Animated explainer</span>${escape(p.title)}</figcaption></figure>`;
+}
+
 function publication(id) {
   const p = papers[id];
   if (!p) throw new Error(`Unknown publication: ${id}`);
   return `<li class="publication"><div class="pub-meta">${escape(p.venue)} · ${p.year} <span>${escape(p.status)}</span></div><h4>${link(p.title, p.links[0][1])}</h4>${links(p.links)}${p.authors?`<details class="citation"><summary>Authors & citation</summary><p>${escape(p.authors)}.</p><p>${escape(p.title)}. ${escape(p.venue)} (${p.year}).${p.doi?` DOI: ${escape(p.doi)}.`:''}</p></details>`:''}</li>`;
 }
 
+const explainerDialog = '<dialog class="explainer-dialog" id="explainer-dialog" aria-label="Explainer animation"><video controls playsinline preload="none"></video><div class="explainer-bar"><p class="explainer-title"></p><form method="dialog"><button class="explainer-close" type="submit">Close ✕</button></form></div></dialog>';
+
 function project(p, index) {
-  return `<article class="project" id="${p.id}"><div class="project-visual"><span class="index">${String(index+1).padStart(2,'0')} / ${escape(p.type)}</span>${diagram(p.visual)}</div><div class="project-content"><div class="eyebrow status">${escape(p.status)}</div><h2>${escape(p.title)}</h2><p class="project-description">${escape(p.description)}</p>${links(p.links)}${p.note?`<p class="release-note">${escape(p.note)}</p>`:''}${p.detail||p.contribution?`<details class="project-detail"><summary>About this work${p.contribution?' & my contribution':''}</summary>${p.detail?`<p>${escape(p.detail)}</p>`:''}${p.contribution?`<p><strong>My contribution.</strong> ${escape(p.contribution)}</p>`:''}</details>`:''}${p.papers.length?`<h3 class="small-heading">Related publications</h3><ul class="publications">${[...p.papers].sort((a,b)=>(papers[b].date||String(papers[b].year)).localeCompare(papers[a].date||String(papers[a].year))).map(publication).join('')}</ul>`:''}</div></article>`;
+  return `<article class="project" id="${p.id}"><div class="project-visual"><span class="index">${String(index+1).padStart(2,'0')} / ${escape(p.type)}</span>${diagram(p.visual)}${p.papers.filter(id=>papers[id].explainer).map(id=>explainer(papers[id])).join('')}</div><div class="project-content"><div class="eyebrow status">${escape(p.status)}</div><h2>${escape(p.title)}</h2><p class="project-description">${escape(p.description)}</p>${links(p.links)}${p.note?`<p class="release-note">${escape(p.note)}</p>`:''}${p.detail||p.contribution?`<details class="project-detail"><summary>About this work${p.contribution?' & my contribution':''}</summary>${p.detail?`<p>${escape(p.detail)}</p>`:''}${p.contribution?`<p><strong>My contribution.</strong> ${escape(p.contribution)}</p>`:''}</details>`:''}${p.papers.length?`<h3 class="small-heading">Related publications</h3><ul class="publications">${[...p.papers].sort((a,b)=>(papers[b].date||String(papers[b].year)).localeCompare(papers[a].date||String(papers[a].year))).map(publication).join('')}</ul>`:''}</div></article>`;
 }
 
 function about() {
@@ -75,7 +84,7 @@ function projectPage() {
 function layout(page, content) {
   const names = {about:'About',experience:'Experience',projects:'Projects'};
   return `<!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Muqing Zheng, Computer Scientist at Pacific Northwest National Laboratory. Quantum algorithms, scientific computing, and research software."><meta name="theme-color" content="#f6f5f1"><meta property="og:title" content="Muqing Zheng | ${names[page]}"><meta property="og:description" content="Quantum algorithms, scientific computing, and research software."><meta property="og:type" content="website"><title>${names[page]} · Muqing Zheng</title><link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="style.css"><script src="site.js" defer></script></head><body><a class="skip-link" href="#main">Skip to content</a><div class="shell"><header class="site-header"><a class="wordmark" href="index.html" aria-label="Muqing Zheng, home">MZ<span class="wordmark-dot">.</span></a><nav aria-label="Main navigation">${Object.entries(names).map(([key,name])=>link(name,key==='about'?'index.html':`${key}.html`,page===key?'aria-current="page"':'')).join('')}</nav></header><main id="main">${content}</main><footer></footer></div></body></html>`;
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Muqing Zheng, Computer Scientist at Pacific Northwest National Laboratory. Quantum algorithms, scientific computing, and research software."><meta name="theme-color" content="#f6f5f1"><meta property="og:title" content="Muqing Zheng | ${names[page]}"><meta property="og:description" content="Quantum algorithms, scientific computing, and research software."><meta property="og:type" content="website"><title>${names[page]} · Muqing Zheng</title><link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="style.css"><script src="site.js" defer></script></head><body><a class="skip-link" href="#main">Skip to content</a><div class="shell"><header class="site-header"><a class="wordmark" href="index.html" aria-label="Muqing Zheng, home">MZ<span class="wordmark-dot">.</span></a><nav aria-label="Main navigation">${Object.entries(names).map(([key,name])=>link(name,key==='about'?'index.html':`${key}.html`,page===key?'aria-current="page"':'')).join('')}</nav></header><main id="main">${content}</main>${content.includes('data-explainer')?explainerDialog:''}<footer></footer></div></body></html>`;
 }
 
 export async function build() {
@@ -102,6 +111,7 @@ export async function build() {
     await writeFile(new URL(`./dist/${page==='about'?'index':page}.html`,import.meta.url),layout(page,content));
   }
   for (const name of ['style.css','site.js','favicon.svg']) await copyFile(new URL(`./${name}`,import.meta.url),new URL(`./dist/${name}`,import.meta.url));
+  await cp(new URL('./explainers/',import.meta.url),new URL('./dist/explainers/',import.meta.url),{recursive:true});
   await writeFile(new URL('./dist/.nojekyll',import.meta.url),'');
 }
 if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
