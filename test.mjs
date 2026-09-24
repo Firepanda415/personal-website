@@ -5,27 +5,31 @@ import { build, escape, link } from './build.mjs';
 import { projects, papers } from './data.mjs';
 
 test('pages build with valid structure and links', async () => {
-  await build();
-  const plannerUrl = new URL('dist/sfskills/index.html', import.meta.url);
-  const planner = await readFile(plannerUrl, 'utf8');
-  assert.match(planner, /Starfield Skill Command Generator/);
-  for (const [,asset] of planner.matchAll(/(?:src|href)="(\.\/[^\"]+)"/g)) {
-    await access(new URL(asset, plannerUrl));
+  const tools = await build();
+  if (tools.planner) {
+    const plannerUrl = new URL('dist/sfskills/index.html', import.meta.url);
+    const planner = await readFile(plannerUrl, 'utf8');
+    assert.match(planner, /Starfield Skill Command Generator/);
+    for (const [,asset] of planner.matchAll(/(?:src|href)="(\.\/[^\"]+)"/g)) {
+      await access(new URL(asset, plannerUrl));
+    }
+    await access(new URL('LICENSE', plannerUrl));
   }
-  await access(new URL('LICENSE', plannerUrl));
-  const wdUrl = new URL('dist/wdtool/index.html', import.meta.url);
-  const wd = await readFile(wdUrl, 'utf8');
-  assert.match(wd, /WARDOGS/);
-  for (const [,asset] of wd.matchAll(/(?:src|href)="(\.\/[^\"]+)"/g)) await access(new URL(asset, wdUrl));
-  const wdAppUrl = new URL('app.js', wdUrl);
-  const wdApp = await readFile(wdAppUrl, 'utf8');
-  for (const [,module] of wdApp.matchAll(/\bfrom\s*['"](\.\/[^'"]+)['"]/g)) await access(new URL(module, wdAppUrl));
-  await access(new URL('THIRD_PARTY_NOTICES.md', wdUrl));
-  await assert.rejects(access(new URL('assets/maps/', wdUrl)), {code:'ENOENT'});
-  const tileManifest = JSON.parse(await readFile(new URL('assets/maps-display/manifest.json', wdUrl), 'utf8'));
-  assert.ok(Object.keys(tileManifest.files).length > 0);
-  for (const [path, {bytes}] of Object.entries(tileManifest.files)) {
-    assert.equal((await stat(new URL(`assets/maps-display/${path}`, wdUrl))).size, bytes, `Missing or truncated map tile: ${path}`);
+  if (tools.wardogs) {
+    const wdUrl = new URL('dist/wdtool/index.html', import.meta.url);
+    const wd = await readFile(wdUrl, 'utf8');
+    assert.match(wd, /WARDOGS/);
+    for (const [,asset] of wd.matchAll(/(?:src|href)="(\.\/[^\"]+)"/g)) await access(new URL(asset, wdUrl));
+    const wdAppUrl = new URL('app.js', wdUrl);
+    const wdApp = await readFile(wdAppUrl, 'utf8');
+    for (const [,module] of wdApp.matchAll(/\bfrom\s*['"](\.\/[^'"]+)['"]/g)) await access(new URL(module, wdAppUrl));
+    await access(new URL('THIRD_PARTY_NOTICES.md', wdUrl));
+    await assert.rejects(access(new URL('assets/maps/', wdUrl)), {code:'ENOENT'});
+    const tileManifest = JSON.parse(await readFile(new URL('assets/maps-display/manifest.json', wdUrl), 'utf8'));
+    assert.ok(Object.keys(tileManifest.files).length > 0);
+    for (const [path, {bytes}] of Object.entries(tileManifest.files)) {
+      assert.equal((await stat(new URL(`assets/maps-display/${path}`, wdUrl))).size, bytes, `Missing or truncated map tile: ${path}`);
+    }
   }
   assert.equal(new Set(projects.map(p=>p.id)).size,projects.length);
   const referenced = projects.flatMap(p=>p.papers);

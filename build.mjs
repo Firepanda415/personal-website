@@ -1,4 +1,4 @@
-import { mkdir, writeFile, copyFile, cp, rm } from 'node:fs/promises';
+import { mkdir, writeFile, copyFile, cp, rm, access } from 'node:fs/promises';
 import { readFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
@@ -91,32 +91,51 @@ function layout(page, content) {
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Muqing Zheng, Computer Scientist at Pacific Northwest National Laboratory. Quantum algorithms, scientific computing, and research software."><meta name="theme-color" content="#f6f5f1"><meta property="og:title" content="Muqing Zheng | ${names[page]}"><meta property="og:description" content="Quantum algorithms, scientific computing, and research software."><meta property="og:type" content="website"><title>${names[page]} · Muqing Zheng</title><link rel="icon" href="favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="${versioned('style.css')}"><script src="${versioned('site.js')}" defer></script></head><body><a class="skip-link" href="#main">Skip to content</a><div class="shell"><header class="site-header"><a class="wordmark" href="index.html" aria-label="Muqing Zheng, home">MZ<span class="wordmark-dot">.</span></a><nav aria-label="Main navigation">${Object.entries(names).map(([key,name])=>link(name,key==='about'?'index.html':`${key}.html`,page===key?'aria-current="page"':'')).join('')}</nav></header><main id="main">${content}</main>${content.includes('data-explainer')?explainerDialog:''}<footer></footer></div></body></html>`;
 }
 
+// The tools are separate repositories published under the same domain. A local build skips a tool
+// that is not checked out next to this repository, but a directory named by its variable, as in CI, must exist.
+async function toolDir(variable, sibling) {
+  const dir = process.env[variable] || fileURLToPath(new URL(`../${sibling}/`, import.meta.url));
+  try {
+    await access(dir);
+    return dir;
+  } catch {
+    if (process.env[variable]) throw new Error(`${variable} does not exist: ${dir}`);
+    console.warn(`Skipping ${sibling}: set ${variable} or check it out next to this repository to include it.`);
+    return null;
+  }
+}
+
 export async function build() {
-  const planner = process.env.SF_SKILLS_DIR || fileURLToPath(new URL('../Starfield_SkillTree_Generator/', import.meta.url));
-  const destination = fileURLToPath(new URL('./dist/sfskills/', import.meta.url));
-  await mkdir(join(destination, 'data'), {recursive:true});
-  for (const name of ['index.html', 'styles.css', 'app.js', 'data/data.js', 'LICENSE']) {
-    await copyFile(resolve(planner, name), join(destination, name));
-  }
+  const planner = await toolDir('SF_SKILLS_DIR', 'Starfield_SkillTree_Generator');
+  const wardogs = await toolDir('WDTOOL_DIR', 'MZ-Wardogs');
   await mkdir(new URL('./dist/', import.meta.url), {recursive:true});
-  const wardogs = process.env.WDTOOL_DIR || fileURLToPath(new URL('../MZ-Wardogs/', import.meta.url));
-  await mkdir(new URL('./dist/wdtool/', import.meta.url), {recursive:true});
-  for (const name of ['index.html', 'style.css', 'app.js', 'core.mjs', 'map-assets.mjs', 'roads-bakurani.mjs', 'roads-ozeti.mjs', 'roads-zestafona.mjs', 'routing.mjs', 'favicon.svg', 'THIRD_PARTY_NOTICES.md']) {
-    await copyFile(resolve(wardogs, name), new URL(`./dist/wdtool/${name}`, import.meta.url));
+  if (planner) {
+    const destination = fileURLToPath(new URL('./dist/sfskills/', import.meta.url));
+    await mkdir(join(destination, 'data'), {recursive:true});
+    for (const name of ['index.html', 'styles.css', 'app.js', 'data/data.js', 'LICENSE']) {
+      await copyFile(resolve(planner, name), join(destination, name));
+    }
   }
-  const wdOutput = fileURLToPath(new URL('./dist/wdtool/', import.meta.url));
-  const oldMaps = resolve(wdOutput, 'assets/maps');
-  if (!oldMaps.startsWith(resolve(wdOutput) + sep)) throw new Error('Map cleanup outside website output');
-  await rm(oldMaps, {recursive:true, force:true});
-  await cp(resolve(wardogs, 'assets/maps-display'), new URL('./dist/wdtool/assets/maps-display/', import.meta.url), {recursive:true});
-  await mkdir(join(wdOutput, 'docs'), {recursive:true});
-  await copyFile(resolve(wardogs, 'docs/road-review-3d.json'), join(wdOutput, 'docs/road-review-3d.json'));
+  if (wardogs) {
+    await mkdir(new URL('./dist/wdtool/', import.meta.url), {recursive:true});
+    for (const name of ['index.html', 'style.css', 'app.js', 'core.mjs', 'map-assets.mjs', 'roads-bakurani.mjs', 'roads-ozeti.mjs', 'roads-zestafona.mjs', 'routing.mjs', 'favicon.svg', 'THIRD_PARTY_NOTICES.md']) {
+      await copyFile(resolve(wardogs, name), new URL(`./dist/wdtool/${name}`, import.meta.url));
+    }
+    const wdOutput = fileURLToPath(new URL('./dist/wdtool/', import.meta.url));
+    const oldMaps = resolve(wdOutput, 'assets/maps');
+    if (!oldMaps.startsWith(resolve(wdOutput) + sep)) throw new Error('Map cleanup outside website output');
+    await rm(oldMaps, {recursive:true, force:true});
+    await cp(resolve(wardogs, 'assets/maps-display'), new URL('./dist/wdtool/assets/maps-display/', import.meta.url), {recursive:true});
+    await mkdir(join(wdOutput, 'docs'), {recursive:true});
+    await copyFile(resolve(wardogs, 'docs/road-review-3d.json'), join(wdOutput, 'docs/road-review-3d.json'));
+  }
   for (const [page,content] of [['about',about()],['experience',experience()],['projects',projectPage()]]) {
     await writeFile(new URL(`./dist/${page==='about'?'index':page}.html`,import.meta.url),layout(page,content));
   }
   for (const name of ['style.css','site.js','favicon.svg']) await copyFile(new URL(`./${name}`,import.meta.url),new URL(`./dist/${name}`,import.meta.url));
   await cp(new URL('./explainers/',import.meta.url),new URL('./dist/explainers/',import.meta.url),{recursive:true});
   await writeFile(new URL('./dist/.nojekyll',import.meta.url),'');
+  return {planner: Boolean(planner), wardogs: Boolean(wardogs)};
 }
 if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
   await build();
