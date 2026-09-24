@@ -44,46 +44,8 @@ ROWS = [
 ]
 
 
-def header(number, title):
-    return eyebrow(f"{number:02d} / {title}").to_corner(UL, buff=0.55)
-
-
-def gate(label, width=1.0, height=0.75, color=INK, size=0.85):
-    box = RoundedRectangle(corner_radius=0.08, width=width, height=height, stroke_color=color,
-                           stroke_width=2.5, fill_color=PAPER, fill_opacity=1)
-    lab = M(label, size) if isinstance(label, str) else label
-    if lab.width > width - 0.2:
-        lab.scale_to_fit_width(width - 0.2)
-    return VGroup(box, lab.move_to(box))
-
-
-def meter(color=INK):
-    box = RoundedRectangle(corner_radius=0.08, width=0.8, height=0.62, stroke_color=color, stroke_width=2.5,
-                           fill_color=PAPER, fill_opacity=1)
-    arc = Arc(radius=0.24, start_angle=PI / 6, angle=2 * PI / 3, color=color, stroke_width=2.5).move_to(box).shift(0.02 * DOWN)
-    needle = Line(box.get_center() + 0.16 * DOWN, box.get_center() + 0.16 * UP + 0.14 * RIGHT, color=color, stroke_width=2.5)
-    return VGroup(box, arc, needle)
-
-
-def wire(y, x0, x1, color=INK, width=2.5):
-    return Line([x0, y, 0], [x1, y, 0], color=color, stroke_width=width)
-
-
-def card(lines, width, color=LINE, pad=0.3):
-    body = VGroup(*lines).arrange(DOWN, aligned_edge=LEFT, buff=0.18)
-    frame = RoundedRectangle(corner_radius=0.1, width=max(width, body.width + 2 * pad), height=body.height + 2 * pad,
-                             stroke_color=color, stroke_width=2, fill_color=PAPER, fill_opacity=1)
-    body.move_to(frame).align_to(frame, LEFT).shift(pad * RIGHT)
-    return VGroup(frame, body)
-
-
 class LCHSExplainer(Explainer):
     timing_file = BUILD / "lchs" / "audio" / "timing.json"
-
-    def clear_stage(self, keep=(), run_time=0.7):
-        gone = [m for m in self.mobjects if m not in keep]
-        if gone:
-            self.play(*[FadeOut(m) for m in gone], run_time=run_time)
 
     def construct(self):
         self.title_card()
@@ -136,9 +98,13 @@ class LCHSExplainer(Explainer):
             return VGroup(strips, SurroundingRectangle(strips, buff=0, color=MUTED, stroke_width=1.5))
         bar = always_redraw(rod)
         grid = np.arange(1, 9) / 9
+        # Fade the samples in through their own opacity, so they follow the curve on every frame.
+        shown = ValueTracker(0.0)
         dots = always_redraw(lambda: VGroup(*[
-            VGroup(Line(axes.c2p(x, 0), axes.c2p(x, float(heat(x, t.get_value())[0])), color=MUTED, stroke_width=1.5, stroke_opacity=0.7),
-                   Dot(axes.c2p(x, float(heat(x, t.get_value())[0])), radius=0.07, color=INK)) for x in grid]))
+            VGroup(Line(axes.c2p(x, 0), axes.c2p(x, float(heat(x, t.get_value())[0])), color=MUTED, stroke_width=1.5,
+                        stroke_opacity=0.7 * shown.get_value()),
+                   Dot(axes.c2p(x, float(heat(x, t.get_value())[0])), radius=0.07, color=INK, fill_opacity=shown.get_value()))
+            for x in grid]))
         vec = M("u = vec(u_1, u_2, dots.v, u_8)", 1.1).move_to([3.4, 1.1, 0])
         ode = M("(dif u)/(dif t) = -A u", 1.4).move_to([3.4, -1.5, 0])
 
@@ -146,7 +112,8 @@ class LCHSExplainer(Explainer):
             self.play(FadeIn(head), Create(axes), FadeIn(ulab), FadeIn(bar), Create(curve), run_time=1.0)
             self.play(t.animate.set_value(0.0045), run_time=v.dur(0) - 0.7, rate_func=linear)
             v.until(1)
-            self.play(FadeIn(dots), t.animate.set_value(0.0065), run_time=1.6, rate_func=linear)
+            self.add(dots)
+            self.play(shown.animate.set_value(1), t.animate.set_value(0.0065), run_time=1.6, rate_func=linear)
             self.play(Write(vec), t.animate.set_value(0.0085), run_time=2.0, rate_func=linear)
             self.play(Write(ode), t.animate.set_value(0.011), run_time=v.left() - 0.2, rate_func=linear)
 

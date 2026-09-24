@@ -95,22 +95,96 @@ def M(expr, size=1.0, color=INK):
     return mob
 
 
+def header(number, title):
+    return eyebrow(f"{number:02d} / {title}").to_corner(UL, buff=0.55)
+
+
+def gate(label, width=1.0, height=0.75, color=INK, size=0.85):
+    box = RoundedRectangle(corner_radius=0.08, width=width, height=height, stroke_color=color,
+                           stroke_width=2.5, fill_color=PAPER, fill_opacity=1)
+    lab = M(label, size) if isinstance(label, str) else label
+    if lab.width > width - 0.2:
+        lab.scale_to_fit_width(width - 0.2)
+    return VGroup(box, lab.move_to(box))
+
+
+def meter(color=INK):
+    box = RoundedRectangle(corner_radius=0.08, width=0.8, height=0.62, stroke_color=color, stroke_width=2.5,
+                           fill_color=PAPER, fill_opacity=1)
+    arc = Arc(radius=0.24, start_angle=PI / 6, angle=2 * PI / 3, color=color, stroke_width=2.5).move_to(box).shift(0.02 * DOWN)
+    needle = Line(box.get_center() + 0.16 * DOWN, box.get_center() + 0.16 * UP + 0.14 * RIGHT, color=color, stroke_width=2.5)
+    return VGroup(box, arc, needle)
+
+
+def wire(y, x0, x1, color=INK, width=2.5):
+    return Line([x0, y, 0], [x1, y, 0], color=color, stroke_width=width)
+
+
+def card(lines, width, color=LINE, pad=0.3):
+    body = VGroup(*lines).arrange(DOWN, aligned_edge=LEFT, buff=0.18)
+    frame = RoundedRectangle(corner_radius=0.1, width=max(width, body.width + 2 * pad), height=body.height + 2 * pad,
+                             stroke_color=color, stroke_width=2, fill_color=PAPER, fill_opacity=1)
+    body.move_to(frame).align_to(frame, LEFT).shift(pad * RIGHT)
+    return VGroup(frame, body)
+
+
+CAPTION_BAND = 0.9   # height of the subtitle strip below the 8-unit design frame
+CAPTION_WORDS = 14   # longest subtitle line, in words
+
+
+def cues(start, end, text):
+    """Split a narrated sentence into subtitle lines timed in proportion to their length."""
+    words = text.split()
+    n = -(-len(words) // CAPTION_WORDS)
+    size = -(-len(words) // n)
+    chunks = [" ".join(words[i:i + size]) for i in range(0, len(words), size)]
+    total = sum(len(c) for c in chunks)
+    out, t = [], start
+    for c in chunks:
+        dt = (end - start) * len(c) / total
+        out.append((t, t + dt, c))
+        t += dt
+    return out
+
+
 class Explainer(Scene):
-    """Scene whose segments are timed by pre-synthesized narration."""
+    """Scene whose segments are timed by pre-synthesized narration.
+
+    The camera shows the usual 8-unit frame plus a strip below it, so subtitles never
+    cover the animation. Scene layout code keeps using the 8-unit frame. The subtitle
+    text is burned into the strip by finish.py from the cues written in tear_down.
+    """
 
     timing_file = None
 
     def setup(self):
         self.timing = json.loads(Path(self.timing_file).read_text())
         self.captions = []
+        cam = self.camera
+        cam.frame_height = config.frame_height + CAPTION_BAND
+        cam.frame_width = cam.frame_height * config.frame_width / config.frame_height
+        cam.frame_center = np.array([0.0, -CAPTION_BAND / 2, 0.0])
+        bottom = -config.frame_height / 2
+        self.subtitle_band = Rectangle(width=cam.frame_width + 0.1, height=CAPTION_BAND, stroke_width=0,
+                                       fill_color=WASH, fill_opacity=1).move_to([0, bottom - CAPTION_BAND / 2, 0])
+        self.add(self.subtitle_band)
+
+    def clear_stage(self, keep=(), run_time=0.7):
+        """Fade out everything except the subtitle strip and the given mobjects."""
+        keep = [*keep, self.subtitle_band]
+        gone = [m for m in self.mobjects if m not in keep]
+        if gone:
+            self.play(*[FadeOut(m) for m in gone], run_time=run_time)
 
     @contextmanager
     def voice(self, key):
         seg = self.timing[key]
         start = self.renderer.time
-        self.add_sound(str(Path(self.timing_file).with_name(seg["file"])))
+        # Scene.add_sound drops the sound whenever the previous animation came from Manim's
+        # render cache, so the narration goes straight to the file writer.
+        self.renderer.file_writer.add_sound(str(Path(self.timing_file).with_name(seg["file"])), start)
         for s in seg["sentences"]:
-            self.captions.append((start + s["start"], start + s["end"], s["text"]))
+            self.captions += cues(start + s["start"], start + s["end"], s["text"])
         tracker = _Tracker(self, start, seg)
         yield tracker
         left = seg["duration"] - (self.renderer.time - start)

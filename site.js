@@ -24,9 +24,6 @@ if (explainerDialog && explainerDialog.showModal) {
   document.querySelectorAll('[data-explainer]').forEach(link => {
     link.addEventListener('click', event => {
       event.preventDefault();
-      const track = document.createElement('track');
-      Object.assign(track, {kind: 'captions', srclang: 'en', label: 'English', src: link.dataset.captions});
-      video.replaceChildren(track);
       video.src = link.dataset.explainer;
       explainerDialog.querySelector('.explainer-title').textContent = link.dataset.title;
       explainerDialog.showModal();
@@ -34,5 +31,5 @@ if (explainerDialog && explainerDialog.showModal) {
     });
   });
   explainerDialog.addEventListener('click', event => { if (event.target === explainerDialog) explainerDialog.close(); });
-  explainerDialog.addEventListener('close', () => { video.pause(); video.removeAttribute('src'); video.replaceChildren(); video.load(); });
+  explainerDialog.addEventListener('close', () => { video.pause(); video.removeAttribute('src'); video.load(); });
 }

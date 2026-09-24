@@ -22,7 +22,7 @@ Open http://127.0.0.1:4173. Run `npm run build` and refresh the browser after ed
 - `build.mjs`: HTML generation and page content.
 - `style.css`: layout and typography.
 - `site.js`: biography copy button and explainer video player.
-- `explainers/`: narrated explainer videos, posters, and captions, built from `animations/` (see `animations/README.md`).
+- `explainers/`: narrated explainer videos with burned-in subtitles and their posters, built from `animations/` (see `animations/README.md`).
 
 ## Build and deployment
 

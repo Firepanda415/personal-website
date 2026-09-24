@@ -13,7 +13,7 @@ sys.path.insert(0, str(HERE))
 import tts
 
 # video id: (scene class, poster still scene)
-VIDEOS = {"lchs": ("LCHSExplainer", "LCHSPoster")}
+VIDEOS = {"lchs": ("LCHSExplainer", "LCHSPoster"), "downfolding": ("DownfoldingExplainer", "DownfoldingPoster")}
 
 
 def main(name, preview=False):
@@ -28,8 +28,8 @@ def main(name, preview=False):
     folder = "480p15" if preview else "1080p30"
     rendered = HERE / "build" / "manim" / "videos" / "scene" / folder / f"{scene}.mp4"
     stem = HERE / "build" / "preview" / name if preview else HERE.parent / "explainers" / name
-    subprocess.run([sys.executable, str(HERE / "finish.py"), str(rendered), str(HERE / "build" / f"{scene}.captions.json"),
-                    str(stem), str(still)], check=True)
+    cues = HERE / "build" / f"{scene}.captions.json"
+    subprocess.run([sys.executable, str(HERE / "finish.py"), str(rendered), str(cues), str(stem), str(still)], check=True)
 
 
 if __name__ == "__main__":

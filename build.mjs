@@ -49,11 +49,11 @@ function diagram(kind, compact = false) {
   return `<div class="diagram ${compact?'compact':''}"><svg viewBox="0 0 320 200" aria-hidden="true">${drawing}</svg>${compact?'':'<span class="diagram-caption">Conceptual illustration</span>'}</div>`;
 }
 
-const media = path => { if (!/^explainers\/[a-z0-9-]+\.(mp4|jpg|vtt)$/.test(path)) throw new Error(`Invalid explainer file: ${path}`); return path; };
+const media = path => { if (!/^explainers\/[a-z0-9-]+\.(mp4|jpg)$/.test(path)) throw new Error(`Invalid explainer file: ${path}`); return path; };
 
 function explainer(p) {
   const e = p.explainer;
-  return `<figure class="explainer"><a class="explainer-link" href="${media(e.video)}" data-explainer="${media(e.video)}" data-captions="${media(e.captions)}" data-title="${escape(p.title)}" aria-label="Play explainer animation (${escape(e.duration)}): ${escape(p.title)}"><img src="${media(e.poster)}" alt="" width="640" height="360" loading="lazy"><span class="explainer-play" aria-hidden="true"></span><span class="explainer-time">${escape(e.duration)}</span></a><figcaption><span class="index">Animated explainer</span>${escape(p.title)}</figcaption></figure>`;
+  return `<figure class="explainer"><a class="explainer-link" href="${media(e.video)}" data-explainer="${media(e.video)}" data-title="${escape(p.title)}" aria-label="Play explainer animation (${escape(e.duration)}): ${escape(p.title)}"><img src="${media(e.poster)}" alt="" width="640" height="360" loading="lazy"><span class="explainer-play" aria-hidden="true"></span><span class="explainer-time">${escape(e.duration)}</span></a><figcaption><span class="index">Animated explainer</span>${escape(p.title)}</figcaption></figure>`;
 }
 
 function publication(id) {

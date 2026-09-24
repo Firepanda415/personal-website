@@ -38,7 +38,12 @@ export const papers = {
       ]
     ],
     "authors": "Nicholas P. Bauman, Muqing Zheng, Chenxu Liu, Nathan M. Myers, Ajay Panyala, Bo Peng, Ang Li, Karol Kowalski",
-    "date": "2026-01-23"
+    "date": "2026-01-23",
+    "explainer": {
+      "video": "explainers/downfolding.mp4",
+      "poster": "explainers/downfolding.jpg",
+      "duration": "3:46"
+    }
   },
   "hybrid": {
     "title": "Hybrid continuous-discrete-variable quantum computing: a guide to utility",
@@ -278,18 +283,22 @@ export const papers = {
     "explainer": {
       "video": "explainers/lchs.mp4",
       "poster": "explainers/lchs.jpg",
-      "captions": "explainers/lchs.vtt",
-      "duration": "4:22"
+      "duration": "4:21"
     }
   },
   "qflow": {
     "title": "Quantum Information Harvesting with the Parallel Quantum Flow Algorithm",
-    "venue": "arXiv",
+    "venue": "The Journal of Physical Chemistry Letters",
     "year": 2026,
-    "date": "2026-06-02",
-    "status": "Preprint",
+    "date": "2026-09-23",
+    "status": "Published",
+    "doi": "10.1021/acs.jpclett.6c02025",
     "authors": "Nicholas P. Bauman, Ajay Panyala, Chenxu Liu, Muqing Zheng, Meng Wang, Karol Kowalski",
     "links": [
+      [
+        "Paper",
+        "https://doi.org/10.1021/acs.jpclett.6c02025"
+      ],
       [
         "Preprint",
         "https://arxiv.org/abs/2606.04186"

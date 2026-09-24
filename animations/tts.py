@@ -2,7 +2,7 @@
 
 Each segment becomes one WAV file. Sentences inside a segment are separated by
 a short pause, and their start and end times are written to timing.json so the
-scene can sync animations and the build can emit WebVTT captions.
+scene can sync animations and subtitles to the speech.
 Unchanged segments are reused from the cache.
 """
 import hashlib
