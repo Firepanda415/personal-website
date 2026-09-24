@@ -166,7 +166,12 @@ export const papers = {
         "https://arxiv.org/abs/2010.09188"
       ]
     ],
-    "date": "2023-02-24"
+    "date": "2023-02-24",
+    "explainer": {
+      "video": "explainers/bayesian.mp4",
+      "poster": "explainers/bayesian.jpg",
+      "duration": "6:07"
+    }
   },
   "power": {
     "title": "Early Exploration of a Flexible Framework for Efficient Quantum Linear Solvers in Power Systems",

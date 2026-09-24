@@ -28,6 +28,8 @@ The preview writes a 480p check to `build/preview/`. The full build writes a 108
 
 The LCHS scene plots squeezed-Fock coefficients and truncation errors from the CV-DV-LCHS repository. After those results change, refresh the copy with `python lchs/extract_data.py /path/to/CV-DV-LCHS`.
 
+Section 04 of the Bayesian scene repeats the consistent Bayesian inference on the ibm_perth tutorial data in the paper's code repository, which differs from the paper's ibmqx2 experiments. Rebuild `bayesian/data.json` with `python bayesian/extract_data.py /path/to/Bayesian-Error-Characterization-and-Mitigation`.
+
 ## Add a video
 
 1. Write `<id>/narration.py` with `SEGMENTS`, a list of `(key, sentences)` pairs. Each sentence has a caption `text` and, where symbols need spoken words, a `say` string.
