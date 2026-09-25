@@ -3,7 +3,7 @@ export const person = {
   "role": "Computer Scientist",
   "institution": "Pacific Northwest National Laboratory",
   "email": "muqing.zheng@pnnl.gov",
-  "bio": "Muqing Zheng is a Computer Scientist at Pacific Northwest National Laboratory. His research focuses on quantum algorithms for scientific computing, including hybrid continuous-variable and discrete-variable methods, differential equations, and quantum chemistry. He received his Ph.D. in Industrial Engineering from Lehigh University in 2024 and his B.S. in Mathematics from Rose-Hulman Institute of Technology in 2019.",
+  "bio": "Muqing Zheng is a computer scientist at Pacific Northwest National Laboratory. His research focuses on quantum algorithms and software for scientific computing, including hybrid qubit-qumode methods, differential equation solvers, and quantum chemistry. He also develops NWQLib, a software library that provides end-to-end workflows for applying quantum algorithms to scientific problems. He received his Ph.D. in industrial engineering from Lehigh University in 2024 and his B.S. in mathematics from Rose-Hulman Institute of Technology in 2019.",
   "links": [
     [
       "Scholar",
@@ -33,6 +33,14 @@ export const papers = {
         "https://doi.org/10.1103/b1t6-ln6v"
       ],
       [
+        "Code",
+        "https://github.com/ExaChem/exachem"
+      ],
+      [
+        "Data",
+        "https://github.com/npbauman/DUCC-Hamiltonian-Library"
+      ],
+      [
         "Preprint",
         "https://arxiv.org/abs/2507.01199"
       ]
@@ -54,6 +62,10 @@ export const papers = {
       [
         "Preprint",
         "https://arxiv.org/abs/2511.13882"
+      ],
+      [
+        "Code",
+        "https://github.com/pnnl/hybridlane"
       ]
     ],
     "authors": "A. F. Kemper, Antonios Alvertis, Muhammad Asaduzzaman, Bojko N. Bakalov, Dror Baron, Joel Bierman, Blake Burgstahler, Srikar Chundury, Elin Ranjan Das, Jim Furches, Fucheng Guo, Raghav G. Jha, Katherine Klymko, Arvin Kushwaha, Ang Li, Aishwarya Majumdar, Carlos Ortiz Marrero, Shubdeep Mohapatra, Christopher Mori, Frank Mueller, Doru Thom Popovici, Tim Stavenger, Mastawal Tirfe, Norm M. Tubman, Muqing Zheng, Huiyang Zhou, Yuan Liu",
@@ -100,6 +112,10 @@ export const papers = {
         "https://doi.org/10.1103/PhysRevResearch.5.023200"
       ],
       [
+        "Code",
+        "https://github.com/pnnl/QuGCM"
+      ],
+      [
         "Preprint",
         "https://arxiv.org/abs/2212.09205"
       ]
@@ -117,6 +133,10 @@ export const papers = {
       [
         "Paper",
         "https://quantum-journal.org/papers/q-2025-06-04-1761/"
+      ],
+      [
+        "Code",
+        "https://github.com/lu-group/quantum-deeponet"
       ],
       [
         "Preprint",
@@ -142,6 +162,10 @@ export const papers = {
         "https://doi.org/10.3390/a18080491"
       ],
       [
+        "Code",
+        "https://github.com/pnnl/nwqlib"
+      ],
+      [
         "Preprint",
         "https://arxiv.org/abs/2404.19067"
       ]
@@ -160,6 +184,10 @@ export const papers = {
       [
         "Paper",
         "https://doi.org/10.1145/3563397"
+      ],
+      [
+        "Code",
+        "https://github.com/QCOL-LU/Bayesian-Error-Characterization-and-Mitigation"
       ],
       [
         "Preprint",
@@ -221,6 +249,10 @@ export const papers = {
       [
         "Paper",
         "https://doi.org/10.1145/3624062.3624222"
+      ],
+      [
+        "Code",
+        "https://github.com/pnnl/qasmtrans"
       ],
       [
         "Preprint",
@@ -290,6 +322,10 @@ export const papers = {
         "https://doi.org/10.1088/2058-9565/aea2c6"
       ],
       [
+        "Code",
+        "https://github.com/Firepanda415/CV-DV-LCHS"
+      ],
+      [
         "Preprint",
         "https://arxiv.org/abs/2605.10708"
       ]
@@ -315,10 +351,19 @@ export const papers = {
         "https://doi.org/10.1021/acs.jpclett.6c02025"
       ],
       [
+        "Code",
+        "https://github.com/ExaChem/exachem"
+      ],
+      [
         "Preprint",
         "https://arxiv.org/abs/2606.04186"
       ]
-    ]
+    ],
+    "explainer": {
+      "video": "explainers/qflow.mp4",
+      "poster": "explainers/qflow.jpg",
+      "duration": "5:33"
+    }
   },
   "qhd": {
     "title": "Benchmarking and Resource Analysis for Augmented-Lagrangian Quantum Hamiltonian Descent",
@@ -361,6 +406,10 @@ export const papers = {
         "https://doi.org/10.1145/3837861"
       ],
       [
+        "Code",
+        "https://github.com/pnnl/qasmtrans"
+      ],
+      [
         "Preprint",
         "https://arxiv.org/abs/2602.05154"
       ]
@@ -393,8 +442,6 @@ export const projects = [
     "status": "In development",
     "visual": "library",
     "description": "A scientific-computing library connecting problem inputs, quantum algorithms, execution, and result analysis.",
-    "detail": "Methods cover linear dynamics and linear systems, energy and phase estimation, and optimization. Shared workflows make algorithm choices, resource requirements, and the meaning of each result explicit.",
-    "contribution": "Algorithm implementation and integration within a shared scientific-computing framework.",
     "note": "Public release in preparation.",
     "papers": [],
     "links": []
@@ -408,18 +455,11 @@ export const projects = [
     "status": "Ongoing",
     "visual": "hybrid",
     "description": "Developing algorithms that combine continuous-variable and discrete-variable quantum systems for scientific computation.",
-    "detail": "Building on hybrid CV–DV methods for linear combinations of Hamiltonian simulation.",
-    "contribution": "Algorithm research and numerical implementation.",
     "papers": [
       "lchs",
       "hybrid"
     ],
-    "links": [
-      [
-        "Code",
-        "https://github.com/Firepanda415/CV-DV-LCHS"
-      ]
-    ]
+    "links": []
   },
   {
     "id": "downfolding",
@@ -430,8 +470,6 @@ export const projects = [
     "status": "Ongoing",
     "visual": "downfolding",
     "description": "Downfolding, QFlow, QuGCM, and ADAPT-GCiM for electronic-structure calculations in reduced spaces.",
-    "detail": "Effective Hamiltonians and nonorthogonal many-body bases offer complementary ways to capture electron correlation with smaller quantum calculations.",
-    "contribution": "Algorithm development and implementation in collaboration with Karol Kowalski and colleagues.",
     "papers": [
       "qflow",
       "downfolding",
@@ -465,7 +503,6 @@ export const projects = [
     "status": "Published work",
     "visual": "physics-learning",
     "description": "Exploring quantum neural operators and linear solvers for scientific applications.",
-    "detail": "This collection brings together work on Quantum DeepONet and investigations of the HHL quantum linear solver.",
     "papers": [
       "deeponet",
       "hhl",

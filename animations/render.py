@@ -15,7 +15,7 @@ import tts
 # video id: (scene class, poster still scene)
 VIDEOS = {"lchs": ("LCHSExplainer", "LCHSPoster"), "downfolding": ("DownfoldingExplainer", "DownfoldingPoster"),
           "gcim": ("GCIMExplainer", "GCIMPoster"), "deeponet": ("DeepONetExplainer", "DeepONetPoster"),
-          "bayesian": ("BayesianExplainer", "BayesianPoster")}
+          "bayesian": ("BayesianExplainer", "BayesianPoster"), "qflow": ("QFlowExplainer", "QFlowPoster")}
 
 
 def main(name, preview=False):

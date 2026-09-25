@@ -30,6 +30,8 @@ The LCHS scene plots squeezed-Fock coefficients and truncation errors from the C
 
 Section 04 of the Bayesian scene repeats the consistent Bayesian inference on the ibm_perth tutorial data in the paper's code repository, which differs from the paper's ibmqx2 experiments. Rebuild `bayesian/data.json` with `python bayesian/extract_data.py /path/to/Bayesian-Error-Characterization-and-Mitigation`.
 
+The QFlow scene plots the water energy profile traced from Fig. 3 of arXiv:2606.04186, because the raw ExaChem output is not published, and reruns the paper's active-space sampling to check the Table 1 cycle sizes. Rebuild `qflow/data.json` with `python qflow/extract_data.py /path/to/arXiv-2606.04186-source`.
+
 ## Add a video
 
 1. Write `<id>/narration.py` with `SEGMENTS`, a list of `(key, sentences)` pairs. Each sentence has a caption `text` and, where symbols need spoken words, a `say` string.
