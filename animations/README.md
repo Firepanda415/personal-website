@@ -32,8 +32,10 @@ Section 04 of the Bayesian scene repeats the consistent Bayesian inference on th
 
 The QFlow scene plots the water energy profile traced from Fig. 3 of arXiv:2606.04186, because the raw ExaChem output is not published, and reruns the paper's active-space sampling to check the Table 1 cycle sizes. Rebuild `qflow/data.json` with `python qflow/extract_data.py /path/to/arXiv-2606.04186-source`.
 
+The NWQLib scene follows two worked examples from the NWQLib example notebooks. Its heat-plate solve and ring planning are recomputed with NWQLib, and the H4 results are read from a notebook's stored outputs. Rebuild `nwqlib/data.json` with the Python environment of an NWQLib checkout, not the animation environment: `python nwqlib/extract_data.py /path/to/nwqlib`. It takes a few seconds and records the NWQLib commit it used.
+
 ## Add a video
 
-1. Write `<id>/narration.py` with `SEGMENTS`, a list of `(key, sentences)` pairs. Each sentence has a caption `text` and, where symbols need spoken words, a `say` string.
+1. Write `<id>/narration.py` with `SEGMENTS`, a list of `(key, sentences)` pairs. Each sentence has a caption `text` and, where symbols need spoken words, a `say` string. An optional `SPEED` overrides the speech speed of `tts.py` for that video.
 2. Write `<id>/scene.py` with a subclass of `Explainer`. Wrap each narrated part in `with self.voice("key") as v:` and call `v.until(i)` to start an animation with sentence `i`.
-3. Add the scene class and a poster still scene to `VIDEOS` in `render.py`, then add an `explainer` entry to the paper in `data.mjs`.
+3. Add the scene class and a poster still scene to `VIDEOS` in `render.py`, then add an `explainer` entry to the paper in `data.mjs`, or to the project when the video covers a project without a paper.

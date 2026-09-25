@@ -444,7 +444,12 @@ export const projects = [
     "description": "A scientific-computing library connecting problem inputs, quantum algorithms, execution, and result analysis.",
     "note": "Public release in preparation.",
     "papers": [],
-    "links": []
+    "links": [],
+    "explainer": {
+      "video": "explainers/nwqlib.mp4",
+      "poster": "explainers/nwqlib.jpg",
+      "duration": "6:18"
+    }
   },
   {
     "id": "hybrid",

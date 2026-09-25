@@ -1,0 +1,238 @@
+{
+ "nwqlib_commit": "0bd74d9240b17f8ef55a33ab9faaadf5f50b5175",
+ "plate": {
+  "grid": 4,
+  "heaters": [
+   [
+    1,
+    1,
+    1.0
+   ],
+   [
+    2,
+    3,
+    0.5
+   ]
+  ],
+  "x": [
+   0.0029611319322901176,
+   0.00596329002471052,
+   0.004064107587980652,
+   0.0021942787590380963,
+   0.005912370016862683,
+   0.016911814537810783,
+   0.008143490180453669,
+   0.004733818348809243,
+   0.0038300885749554176,
+   0.0076895307576981264,
+   0.006919210432917888,
+   0.008645158563017355,
+   0.0017403193362825775,
+   0.0031561887424695814,
+   0.0032479116314918467,
+   0.0029569428606328785
+  ],
+  "max_imag": 5.298637040965283e-16,
+  "reference": [
+   0.003000000000000001,
+   0.006030303030303032,
+   0.004121212121212122,
+   0.002227272727272728,
+   0.005969696969696971,
+   0.017000000000000005,
+   0.008227272727272729,
+   0.00478787878787879,
+   0.0038787878787878796,
+   0.007772727272727276,
+   0.007000000000000003,
+   0.008696969696969698,
+   0.001772727272727273,
+   0.0032121212121212135,
+   0.003303030303030304,
+   0.0030000000000000005
+  ],
+  "relative_error": 0.009072122547325038,
+  "success": 0.16204891484246742,
+  "encoding": "multiplexed_pauli",
+  "alpha": 8.0,
+  "kappa_A": 9.472135954999585,
+  "kappa": 10.472135954999585,
+  "degree": 59,
+  "qubits": 9,
+  "system_qubits": 4,
+  "polynomial_bound": 0.009772963623179424,
+  "rescale": 1.125946105838353,
+  "cx_estimate": 7846.0,
+  "cx_compiled": 7710,
+  "compiled_depth": 11904,
+  "compiled_single": 6336,
+  "sweep": [
+   {
+    "epsilon": 0.1,
+    "degree": 35,
+    "cx": 4678.0,
+    "error": 0.09010304603615478,
+    "success": 0.21282912437846901
+   },
+   {
+    "epsilon": 0.05,
+    "degree": 43,
+    "cx": 5734.0,
+    "error": 0.042016284086928986,
+    "success": 0.19969886986845573
+   },
+   {
+    "epsilon": 0.02,
+    "degree": 53,
+    "cx": 7054.0,
+    "error": 0.01612673397076723,
+    "success": 0.17558476825280045
+   },
+   {
+    "epsilon": 0.01,
+    "degree": 59,
+    "cx": 7846.0,
+    "error": 0.009072122547325038,
+    "success": 0.16204891484246742
+   },
+   {
+    "epsilon": 0.005,
+    "degree": 67,
+    "cx": 8902.0,
+    "error": 0.004238215044955021,
+    "success": 0.14608862780690368
+   },
+   {
+    "epsilon": 0.002,
+    "degree": 77,
+    "cx": 10222.0,
+    "error": 0.0016209456116160121,
+    "success": 0.12939002488785745
+   }
+  ]
+ },
+ "ring": [
+  {
+   "q": 10,
+   "kappa": 5.0,
+   "degree": 27,
+   "qubits": 14,
+   "cx": 7304.0
+  },
+  {
+   "q": 20,
+   "kappa": 5.0,
+   "degree": 27,
+   "qubits": 24,
+   "cx": 24854.0
+  },
+  {
+   "q": 40,
+   "kappa": 5.0,
+   "degree": 27,
+   "qubits": 44,
+   "cx": 92354.0
+  }
+ ],
+ "h4": {
+  "hf": 322.0,
+  "mp2": 154.0,
+  "ccsd": -18.3,
+  "iterations": [
+   {
+    "iteration": 0,
+    "generator": "Hartree–Fock state",
+    "error": 322.0
+   },
+   {
+    "iteration": 1,
+    "generator": "singlet double 0,1 ↔ 2,3",
+    "error": 264.0
+   },
+   {
+    "iteration": 2,
+    "generator": "single 0 ↔ 2",
+    "error": 228.0
+   },
+   {
+    "iteration": 3,
+    "generator": "single 1 ↔ 3",
+    "error": 214.0
+   },
+   {
+    "iteration": 4,
+    "generator": "triplet double 0,1 ↔ 0,3",
+    "error": 27.0
+   },
+   {
+    "iteration": 5,
+    "generator": "singlet double 1,1 ↔ 1,3",
+    "error": 25.9
+   },
+   {
+    "iteration": 6,
+    "generator": "singlet double 0,2 ↔ 1,1",
+    "error": 25.1
+   },
+   {
+    "iteration": 7,
+    "generator": "triplet double 0,1 ↔ 1,2",
+    "error": 14.3
+   },
+   {
+    "iteration": 8,
+    "generator": "singlet double 1,3 ↔ 2,2",
+    "error": 1.94e-10
+   }
+  ],
+  "circuits": 47352,
+  "reanalysis": [
+   {
+    "cutoff": 1e-12,
+    "kept": 12,
+    "error": 1.94e-10
+   },
+   {
+    "cutoff": 0.0001,
+    "kept": 11,
+    "error": 14.3
+   },
+   {
+    "cutoff": 0.001,
+    "kept": 10,
+    "error": 73.6
+   },
+   {
+    "cutoff": 0.01,
+    "kept": 9,
+    "error": 83.6
+   }
+  ]
+ },
+ "cx_table": [
+  {
+   "notebook": "qls_linear_system_intro",
+   "estimate": 7846,
+   "kind": "estimate",
+   "compiled": 7710
+  },
+  {
+   "notebook": "qhd_optimization_intro",
+   "estimate": 13790,
+   "kind": "upper bound",
+   "compiled": 13790
+  },
+  {
+   "notebook": "lchs_linear_dynamics_intro",
+   "estimate": 79712,
+   "kind": "estimate",
+   "compiled": 79680
+  },
+  {
+   "notebook": "lchs_scientific",
+   "estimate": 1322108,
+   "kind": "upper bound",
+   "compiled": 622088
+  }
+ ]
+}

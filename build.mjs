@@ -60,12 +60,15 @@ function explainer(p) {
   return `<figure class="explainer"><a class="explainer-link" href="${versioned(media(e.video))}" data-explainer="${versioned(media(e.video))}" data-title="${escape(p.title)}" aria-label="Play explainer animation (${escape(e.duration)}): ${escape(p.title)}"><img src="${versioned(media(e.poster))}" alt="" width="640" height="360" loading="lazy"><span class="explainer-play" aria-hidden="true"></span><span class="explainer-time">${escape(e.duration)}</span></a><figcaption><span class="index">Animated explainer</span>${escape(p.title)}</figcaption></figure>`;
 }
 
+// A project's explainer videos: the project's own video, if any, then one for each related paper that has one.
+const explainersOf = p => [...(p.explainer ? [p] : []), ...p.papers.map(id => papers[id]).filter(q => q.explainer)];
+
 // About-page links to each project's explainer videos; they open in the same dialog as the project thumbnails.
 function explainerIndex() {
-  const rows = projects.map(p => [p, p.papers.filter(id => papers[id].explainer)]).filter(([, ids]) => ids.length);
+  const rows = projects.map(p => [p, explainersOf(p)]).filter(([, items]) => items.length);
   if (!rows.length) return '';
   const video = p => `<li><a class="video-link" href="${versioned(media(p.explainer.video))}" data-explainer="${versioned(media(p.explainer.video))}" data-title="${escape(p.title)}"><span class="video-play" aria-hidden="true">▶</span>${escape(p.title)} <span class="video-time">${escape(p.explainer.duration)}</span></a></li>`;
-  return `<section class="elsewhere explainer-index"><h2 class="eyebrow">Explainer animations</h2><ul class="elsewhere-list">${rows.map(([p, ids]) => `<li>${link(p.title+' ↗',`projects.html#${p.id}`)}<ul class="video-links">${ids.map(id => video(papers[id])).join('')}</ul></li>`).join('')}</ul></section>`;
+  return `<section class="elsewhere explainer-index"><h2 class="eyebrow">Explainer animations</h2><ul class="elsewhere-list">${rows.map(([p, items]) => `<li>${link(p.title+' ↗',`projects.html#${p.id}`)}<ul class="video-links">${items.map(video).join('')}</ul></li>`).join('')}</ul></section>`;
 }
 
 function publication(id) {
@@ -77,7 +80,7 @@ function publication(id) {
 const explainerDialog = '<dialog class="explainer-dialog" id="explainer-dialog" aria-label="Explainer animation"><video controls playsinline preload="none"></video><div class="explainer-bar"><p class="explainer-title"></p><form method="dialog"><button class="explainer-close" type="submit">Close ✕</button></form></div></dialog>';
 
 function project(p, index) {
-  return `<article class="project" id="${p.id}"><div class="project-visual"><span class="index">${String(index+1).padStart(2,'0')} / ${escape(p.type)}</span>${diagram(p.visual)}${p.papers.filter(id=>papers[id].explainer).map(id=>explainer(papers[id])).join('')}</div><div class="project-content"><div class="eyebrow status">${escape(p.status)}</div><h2>${escape(p.title)}</h2><p class="project-description">${escape(p.description)}</p>${links(p.links)}${p.note?`<p class="release-note">${escape(p.note)}</p>`:''}${p.papers.length?`<h3 class="small-heading">Related publications</h3><ul class="publications">${[...p.papers].sort((a,b)=>(papers[b].date||String(papers[b].year)).localeCompare(papers[a].date||String(papers[a].year))).map(publication).join('')}</ul>`:''}</div></article>`;
+  return `<article class="project" id="${p.id}"><div class="project-visual"><span class="index">${String(index+1).padStart(2,'0')} / ${escape(p.type)}</span>${diagram(p.visual)}${explainersOf(p).map(explainer).join('')}</div><div class="project-content"><div class="eyebrow status">${escape(p.status)}</div><h2>${escape(p.title)}</h2><p class="project-description">${escape(p.description)}</p>${links(p.links)}${p.note?`<p class="release-note">${escape(p.note)}</p>`:''}${p.papers.length?`<h3 class="small-heading">Related publications</h3><ul class="publications">${[...p.papers].sort((a,b)=>(papers[b].date||String(papers[b].year)).localeCompare(papers[a].date||String(papers[a].year))).map(publication).join('')}</ul>`:''}</div></article>`;
 }
 
 function about() {

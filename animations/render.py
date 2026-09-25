@@ -15,13 +15,14 @@ import tts
 # video id: (scene class, poster still scene)
 VIDEOS = {"lchs": ("LCHSExplainer", "LCHSPoster"), "downfolding": ("DownfoldingExplainer", "DownfoldingPoster"),
           "gcim": ("GCIMExplainer", "GCIMPoster"), "deeponet": ("DeepONetExplainer", "DeepONetPoster"),
-          "bayesian": ("BayesianExplainer", "BayesianPoster"), "qflow": ("QFlowExplainer", "QFlowPoster")}
+          "bayesian": ("BayesianExplainer", "BayesianPoster"), "qflow": ("QFlowExplainer", "QFlowPoster"),
+          "nwqlib": ("NWQLibExplainer", "NWQLibPoster")}
 
 
 def main(name, preview=False):
     scene, poster = VIDEOS[name]
-    segments = importlib.import_module(f"{name}.narration").SEGMENTS
-    tts.synthesize(segments, HERE / "build" / name / "audio")
+    narration = importlib.import_module(f"{name}.narration")
+    tts.synthesize(narration.SEGMENTS, HERE / "build" / name / "audio", speed=getattr(narration, "SPEED", tts.SPEED))
     quality = ["-ql"] if preview else ["-r", "1920,1080", "--fps", "30"]
     manim = Path(sys.executable).with_name("manim")
     subprocess.run([str(manim), *quality, "--media_dir", "build/manim", f"{name}/scene.py", scene], cwd=HERE, check=True)
