@@ -50,7 +50,9 @@ def synthesize(segments, out_dir, voice=VOICE, speed=SPEED):
         digest = hashlib.sha256(json.dumps([voice, speed, SENTENCE_GAP, spoken]).encode()).hexdigest()[:16]
         wav = out_dir / f"{key}.wav"
         if key in old and old[key]["hash"] == digest and wav.exists():
-            timing[key] = old[key]
+            # The audio is unchanged, but the subtitle text may have been edited.
+            timing[key] = {**old[key], "sentences": [{**span, "text": sentence["text"]}
+                                                     for span, sentence in zip(old[key]["sentences"], sentences)]}
             continue
         pieces, spans, t = [], [], 0.0
         gap = np.zeros(int(SENTENCE_GAP * RATE), dtype=np.float32)

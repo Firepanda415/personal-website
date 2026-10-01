@@ -42,7 +42,7 @@ def fit_width(cues):
     """Split any subtitle line wider than the frame into balanced pieces timed by length."""
     out = []
     for start, end, text in cues:
-        words, n = text.split(), 1
+        words, n = text.split(" "), 1  # a no-break space joins words, as in house_style.cues
         while True:
             target = SUB_FONT.getlength(text) / n
             chunks, current = [], []

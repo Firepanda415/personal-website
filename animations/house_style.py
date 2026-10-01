@@ -160,8 +160,10 @@ def _lines(words, n):
 
 
 def cues(start, end, text):
-    """Split a narrated sentence into subtitle lines timed in proportion to their length."""
-    words = text.split()
+    """Split a narrated sentence into subtitle lines timed in proportion to their length.
+
+    Lines break only at ordinary spaces, so a no-break space (U+00A0) keeps a term on one line."""
+    words = text.split(" ")
     n = max(-(-len(words) // CAPTION_WORDS), -(-len(text) // CAPTION_CHARS))
     chunks = [" ".join(line) for line in _lines(words, n)]
     total = sum(len(c) for c in chunks)

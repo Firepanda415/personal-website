@@ -3,7 +3,7 @@ export const person = {
   "role": "Computer Scientist",
   "institution": "Pacific Northwest National Laboratory",
   "email": "muqing.zheng@pnnl.gov",
-  "bio": "Muqing Zheng is a computer scientist at Pacific Northwest National Laboratory. His research focuses on quantum algorithms and software for scientific computing, including hybrid qubit-qumode methods, differential equation solvers, and quantum chemistry. He also develops NWQLib, a software library that provides end-to-end workflows for applying quantum algorithms to scientific problems. He received his Ph.D. in industrial engineering from Lehigh University in 2024 and his B.S. in mathematics from Rose-Hulman Institute of Technology in 2019.",
+  "bio": "Muqing Zheng is a computer scientist at Pacific Northwest National Laboratory. His research focuses on quantum algorithms and software for scientific computing, including hybrid qubit-qumode methods, differential equation solvers, and quantum chemistry. He also develops NWQLib, an open-source software library that provides end-to-end workflows for applying quantum algorithms to scientific problems. He received his Ph.D. in industrial engineering from Lehigh University in 2024 and his B.S. in mathematics from Rose-Hulman Institute of Technology in 2019.",
   "links": [
     [
       "Scholar",
@@ -163,7 +163,7 @@ export const papers = {
       ],
       [
         "Code",
-        "https://github.com/pnnl/nwqlib"
+        "https://github.com/pnnl/NWQLib"
       ],
       [
         "Preprint",
@@ -439,16 +439,32 @@ export const projects = [
     "subtitle": "Quantum algorithms, connected.",
     "type": "Scientific software",
     "group": "current",
-    "status": "In development",
+    "status": "Released",
     "visual": "library",
-    "description": "A scientific-computing library connecting problem inputs, quantum algorithms, execution, and result analysis.",
-    "note": "Public release in preparation.",
+    "description": "An open-source Python library that applies quantum algorithms to linear systems, linear dynamics, eigenvalue problems and optimization, and estimates each circuit's resources before it is built.",
     "papers": [],
-    "links": [],
+    "links": [
+      [
+        "Code",
+        "https://github.com/pnnl/NWQLib"
+      ],
+      [
+        "Documentation",
+        "https://pnnl.github.io/NWQLib/"
+      ],
+      [
+        "PyPI",
+        "https://pypi.org/project/nwqlib/"
+      ],
+      [
+        "Zenodo",
+        "https://doi.org/10.5281/zenodo.23074265"
+      ]
+    ],
     "explainer": {
       "video": "explainers/nwqlib.mp4",
       "poster": "explainers/nwqlib.jpg",
-      "duration": "6:18"
+      "duration": "4:53"
     }
   },
   {

@@ -32,7 +32,7 @@ Section 04 of the Bayesian scene repeats the consistent Bayesian inference on th
 
 The QFlow scene plots the water energy profile traced from Fig. 3 of arXiv:2606.04186, because the raw ExaChem output is not published, and reruns the paper's active-space sampling to check the Table 1 cycle sizes. Rebuild `qflow/data.json` with `python qflow/extract_data.py /path/to/arXiv-2606.04186-source`.
 
-The NWQLib scene follows two worked examples from the NWQLib example notebooks. Its heat-plate solve and ring planning are recomputed with NWQLib, and the H4 results are read from a notebook's stored outputs. Rebuild `nwqlib/data.json` with the Python environment of an NWQLib checkout, not the animation environment: `python nwqlib/extract_data.py /path/to/nwqlib`. It takes a few seconds and records the NWQLib commit it used.
+The NWQLib scene follows the quantum linear solver through the heat-plate example of the NWQLib notebooks, then plans the same solver on rings of up to 2¹⁰⁰ sites, as the resource-estimation notebook does. All of its numbers are recomputed with NWQLib. Rebuild `nwqlib/data.json` from a checkout of [NWQLib](https://github.com/pnnl/NWQLib), using that checkout's Python environment rather than the animation environment: `python /path/to/animations/nwqlib/extract_data.py /path/to/NWQLib`. It takes about ten seconds and records the NWQLib commit, the Qiskit and Aer versions, and the processor that timed the planning.
 
 ## Add a video
 

@@ -50,7 +50,6 @@ test('pages build with valid structure and links', async () => {
   }
   const html = await readFile(new URL('dist/projects.html',import.meta.url),'utf8');
   assert.ok(html.indexOf('id="nwqlib"') < html.indexOf('id="quantum-optimization"'));
-  assert.match(html,/Public release in preparation/);
   const explained = [...Object.values(papers), ...projects].filter(p=>p.explainer);
   if (explained.length) assert.equal((html.match(/<dialog class="explainer-dialog"/g)||[]).length,1);
   for (const {explainer} of explained) {
