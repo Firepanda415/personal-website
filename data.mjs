@@ -3,7 +3,7 @@ export const person = {
   "role": "Computer Scientist",
   "institution": "Pacific Northwest National Laboratory",
   "email": "muqing.zheng@pnnl.gov",
-  "bio": "Muqing Zheng is a computer scientist at Pacific Northwest National Laboratory. His research focuses on quantum algorithms and software for scientific computing, including hybrid qubit-qumode methods, differential equation solvers, and quantum chemistry. He also develops NWQLib, an open-source software library that provides end-to-end workflows for applying quantum algorithms to scientific problems. He received his Ph.D. in industrial engineering from Lehigh University in 2024 and his B.S. in mathematics from Rose-Hulman Institute of Technology in 2019.",
+  "bio": "Muqing Zheng is a computer scientist at Pacific Northwest National Laboratory (PNNL). His research focuses on the implementation of quantum algorithms for scientific applications, software development for scientific computing, and hybrid qubit-qumode methods. He is the primary developer of NWQLib, an open-source library that provides end-to-end workflows for scientific applications of quantum algorithms. He was a postdoctoral researcher at PNNL from 2024 to 2026. He earned his Ph.D. in industrial engineering from Lehigh University in 2024 and his B.S. in mathematics from Rose-Hulman Institute of Technology in 2019.",
   "links": [
     [
       "Scholar",
