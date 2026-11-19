@@ -6,6 +6,12 @@ import { projects, papers } from './data.mjs';
 
 test('pages build with valid structure and links', async () => {
   const tools = await build();
+  if (tools.stellaris) {
+    const atlas = new URL('dist/stellaris/index.html', import.meta.url);
+    for (const [,file] of (await readFile(atlas, 'utf8')).matchAll(/(?:src|href)="([^"]+)"/g))
+      await access(new URL(file, atlas));
+    await access(new URL('catalog.json', atlas));
+  }
   if (tools.planner) {
     const plannerUrl = new URL('dist/sfskills/index.html', import.meta.url);
     const planner = await readFile(plannerUrl, 'utf8');

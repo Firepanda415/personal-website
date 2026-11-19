@@ -578,6 +578,11 @@ export const elsewhere = [
     "description": "Plan Starfield character builds and export console commands, in English or Chinese."
   },
   {
+    "title": "Stellaris Atlas",
+    "url": "https://mqzh.science/stellaris/",
+    "description": "Open a local save to compare planet sizes, orbital resources, and event rewards across a region of the galaxy."
+  },
+  {
     "title": "Artillery · Map · Nav for Wardogs (Website and Desktop Overlay)",
     "url": "https://mqzh.science/wdtool/",
     "description": "Mark maps and calculate distances, bearings, and weapon ranges in WARDOGS, in English or Chinese."

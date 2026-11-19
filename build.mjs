@@ -119,7 +119,11 @@ async function toolDir(variable, sibling) {
 export async function build() {
   const planner = await toolDir('SF_SKILLS_DIR', 'Starfield_SkillTree_Generator');
   const wardogs = await toolDir('WDTOOL_DIR', 'MZ-Wardogs');
+  const stellaris = await toolDir('STELLARIS_DIR', 'stellaris_save_visualization');
   await mkdir(new URL('./dist/', import.meta.url), {recursive:true});
+  if (stellaris) {
+    await cp(resolve(stellaris, 'web'), new URL('./dist/stellaris/', import.meta.url), {recursive:true});
+  }
   if (planner) {
     const destination = fileURLToPath(new URL('./dist/sfskills/', import.meta.url));
     await mkdir(join(destination, 'data'), {recursive:true});
@@ -146,7 +150,7 @@ export async function build() {
   for (const name of ['style.css','site.js','favicon.svg']) await copyFile(new URL(`./${name}`,import.meta.url),new URL(`./dist/${name}`,import.meta.url));
   await cp(new URL('./explainers/',import.meta.url),new URL('./dist/explainers/',import.meta.url),{recursive:true});
   await writeFile(new URL('./dist/.nojekyll',import.meta.url),'');
-  return {planner: Boolean(planner), wardogs: Boolean(wardogs)};
+  return {planner: Boolean(planner), wardogs: Boolean(wardogs), stellaris: Boolean(stellaris)};
 }
 if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {
   await build();

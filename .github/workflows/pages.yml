@@ -29,10 +29,17 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
+      - uses: actions/checkout@v4
+        with:
+          repository: Firepanda415/stellaris_save_visualization
+          path: work/stellaris
+      - run: npm test
+        working-directory: work/stellaris
       - run: npm test
         env:
           SF_SKILLS_DIR: work/sf-skills
           WDTOOL_DIR: work/wdtool
+          STELLARIS_DIR: work/stellaris
       - run: node work/wdtool/test.mjs
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
